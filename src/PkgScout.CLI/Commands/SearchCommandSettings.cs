@@ -1,6 +1,6 @@
 using Spectre.Console.Cli;
 
-namespace PkgScout.Commands;
+namespace PkgScout.CLI.Commands;
 
 public sealed class SearchCommandSettings : CommandSettings
 {

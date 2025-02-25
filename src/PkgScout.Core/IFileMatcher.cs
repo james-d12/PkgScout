@@ -1,4 +1,4 @@
-namespace PkgScout.Core.Shared;
+namespace PkgScout.Core;
 
 public enum MatchedFileType
 {

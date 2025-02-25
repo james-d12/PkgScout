@@ -1,6 +1,6 @@
-using PkgScout.Core.Shared;
+using PkgScout.Core;
 
-namespace PkgScout.Core.Modules.NuGet;
+namespace PkgScout.Modules.NuGet;
 
 public sealed class NugetFileMatcher : IFileMatcher
 {

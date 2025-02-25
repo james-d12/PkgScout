@@ -1,8 +1,8 @@
 using System.Xml.Linq;
 using Microsoft.Extensions.Logging;
-using PkgScout.Core.Shared;
+using PkgScout.Core;
 
-namespace PkgScout.Core.Modules.NuGet;
+namespace PkgScout.Modules.NuGet;
 
 public sealed class NugetPackageExtractor(ILogger<NugetPackageExtractor> logger) : IPackageExtractor
 {

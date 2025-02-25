@@ -1,9 +1,9 @@
-using PkgScout.Core.Modules.Npm;
-using PkgScout.Core.Modules.NuGet;
-using PkgScout.Core.Shared;
+using PkgScout.Core;
+using PkgScout.Modules.Npm;
+using PkgScout.Modules.NuGet;
 using Spectre.Console.Cli;
 
-namespace PkgScout.Commands;
+namespace PkgScout.CLI.Commands;
 
 public sealed class SearchCommand : Command<SearchCommandSettings>
 {

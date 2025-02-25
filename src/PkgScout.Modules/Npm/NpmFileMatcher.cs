@@ -1,6 +1,6 @@
-using PkgScout.Core.Shared;
+using PkgScout.Core;
 
-namespace PkgScout.Core.Modules.Npm;
+namespace PkgScout.Modules.Npm;
 
 public sealed class NpmFileMatcher : IFileMatcher
 {

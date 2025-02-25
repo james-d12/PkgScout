@@ -1,4 +1,4 @@
-namespace PkgScout.Core.Modules.NuGet;
+namespace PkgScout.Modules.NuGet;
 
 public enum NugetFileType
 {

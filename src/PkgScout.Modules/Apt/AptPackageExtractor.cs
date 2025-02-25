@@ -1,6 +1,6 @@
-using PkgScout.Core.Shared;
+using PkgScout.Core;
 
-namespace PkgScout.Core.Modules.Apt;
+namespace PkgScout.Modules.Apt;
 
 public sealed class AptPackageExtractor : IPackageExtractor
 {

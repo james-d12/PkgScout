@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace PkgScout.Core.Modules.Npm;
+namespace PkgScout.Modules.Npm;
 
 [JsonSerializable(typeof(NpmPackageJsonDependency))]
 public sealed record NpmPackageJsonDependency(string Name, string Version);
