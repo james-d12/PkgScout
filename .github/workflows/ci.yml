@@ -22,16 +22,16 @@ jobs:
           dotnet-version: '9.0.x'
 
       - name: Restore dependencies
-        run: dotnet restore PkgScout.sln
+        run: dotnet restore src/PkgScout.sln
 
       - name: Build API
-        run: dotnet build PkgScout.sln --configuration Release --no-restore
+        run: dotnet build src/PkgScout.sln --configuration Release --no-restore
 
       - name: Format Check
         run: dotnet format --verify-no-changes --verbosity diagnostic
 
       - name: Run tests
-        run: dotnet test PkgScout.sln --configuration Release --no-build --collect:"XPlat Code Coverage"
+        run: dotnet test src/PkgScout.sln --configuration Release --no-build --collect:"XPlat Code Coverage"
 
       - name: Build Docker
         run: docker compose build
