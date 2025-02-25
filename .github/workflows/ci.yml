@@ -1,0 +1,34 @@
+name: CI Workflow
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.0.x'
+
+      - name: Restore dependencies
+        run: dotnet restore PkgScout.sln
+
+      - name: Build API
+        run: dotnet build PkgScout.sln --configuration Release --no-restore
+
+      - name: Format Check
+        run: dotnet format --verify-no-changes --verbosity diagnostic
+
+      - name: Run tests
+        run: dotnet test PkgScout.sln --configuration Release --no-build --collect:"XPlat Code Coverage"
