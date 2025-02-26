@@ -5,7 +5,9 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\PkgScout.Core\PkgScout.Core.csproj"/>
+      <Folder Include="Systems\Apt\" />
+      <Folder Include="Systems\Dnf\" />
+      <Folder Include="Systems\Pacman\" />
     </ItemGroup>
 
 </Project>

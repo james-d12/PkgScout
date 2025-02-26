@@ -1,7 +1,7 @@
-using PkgScout.Core;
-using PkgScout.Modules.NuGet;
+using PkgScout.Modules.Applications.NuGet;
+using PkgScout.Modules.Applications.Shared;
 
-namespace PkgScout.Modules.Tests.NuGet;
+namespace PkgScout.Modules.Tests.Applications.NuGet;
 
 public sealed class NugetFileMatcherTests
 {

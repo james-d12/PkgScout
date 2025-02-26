@@ -1,8 +1,8 @@
 using System.Text.Json;
 using Microsoft.Extensions.Logging;
-using PkgScout.Core;
+using PkgScout.Modules.Applications.Shared;
 
-namespace PkgScout.Modules.Npm;
+namespace PkgScout.Modules.Applications.Npm;
 
 public sealed class NpmPackageExtractor(ILogger<NpmPackageExtractor> logger) : IPackageExtractor
 {

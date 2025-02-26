@@ -1,7 +1,7 @@
-using PkgScout.Core;
-using PkgScout.Modules.Cargo;
+using PkgScout.Modules.Applications.Cargo;
+using PkgScout.Modules.Applications.Shared;
 
-namespace PkgScout.Modules.Tests.Cargo;
+namespace PkgScout.Modules.Tests.Applications.Cargo;
 
 public sealed class CargoFileMatcherTests
 {

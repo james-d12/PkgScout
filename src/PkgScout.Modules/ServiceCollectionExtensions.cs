@@ -1,8 +1,8 @@
 using Microsoft.Extensions.DependencyInjection;
-using PkgScout.Core;
-using PkgScout.Modules.Cargo;
-using PkgScout.Modules.Npm;
-using PkgScout.Modules.NuGet;
+using PkgScout.Modules.Applications.Cargo;
+using PkgScout.Modules.Applications.Npm;
+using PkgScout.Modules.Applications.NuGet;
+using PkgScout.Modules.Applications.Shared;
 
 namespace PkgScout.Modules;
 

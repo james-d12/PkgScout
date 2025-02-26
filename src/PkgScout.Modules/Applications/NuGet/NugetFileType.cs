@@ -1,6 +1,6 @@
-namespace PkgScout.Modules.NuGet;
+namespace PkgScout.Modules.Applications.NuGet;
 
-public enum NugetFileType
+internal enum NugetFileType
 {
     ProjectFile,
     CentralizedPackageManagement,

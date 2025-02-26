@@ -1,6 +1,6 @@
-using PkgScout.Core;
+using PkgScout.Modules.Applications.Shared;
 
-namespace PkgScout.Modules.Cargo;
+namespace PkgScout.Modules.Applications.Cargo;
 
 public sealed class CargoFileMatcher : IFileMatcher
 {

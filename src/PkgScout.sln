@@ -2,8 +2,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PkgScout.CLI", "PkgScout.CLI\PkgScout.CLI.csproj", "{F020E946-135D-44E8-800E-D8916BA30DB6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PkgScout.Core", "PkgScout.Core\PkgScout.Core.csproj", "{58B6A892-A2C8-4CF8-B950-E9453348DC81}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D3D2E1BB-284B-42F3-BBEC-8BF43EBF3ECE}"
 	ProjectSection(SolutionItems) = preProject
 		..\.editorconfig = ..\.editorconfig
@@ -33,10 +31,6 @@ Global
 		{F020E946-135D-44E8-800E-D8916BA30DB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F020E946-135D-44E8-800E-D8916BA30DB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F020E946-135D-44E8-800E-D8916BA30DB6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{58B6A892-A2C8-4CF8-B950-E9453348DC81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{58B6A892-A2C8-4CF8-B950-E9453348DC81}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{58B6A892-A2C8-4CF8-B950-E9453348DC81}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{58B6A892-A2C8-4CF8-B950-E9453348DC81}.Release|Any CPU.Build.0 = Release|Any CPU
 		{ECF4D531-7ECF-41F4-BBC2-A83D307F2192}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{ECF4D531-7ECF-41F4-BBC2-A83D307F2192}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ECF4D531-7ECF-41F4-BBC2-A83D307F2192}.Release|Any CPU.ActiveCfg = Release|Any CPU

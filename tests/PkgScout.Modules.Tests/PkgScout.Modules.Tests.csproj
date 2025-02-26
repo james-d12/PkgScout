@@ -26,4 +26,8 @@
       <ProjectReference Include="..\..\src\PkgScout.Modules\PkgScout.Modules.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Applications\" />
+    </ItemGroup>
+
 </Project>

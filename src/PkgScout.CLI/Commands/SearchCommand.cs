@@ -1,4 +1,4 @@
-using PkgScout.Core;
+using PkgScout.Modules.Applications.Shared;
 using Spectre.Console.Cli;
 
 namespace PkgScout.CLI.Commands;
