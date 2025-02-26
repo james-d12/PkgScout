@@ -1,18 +1,19 @@
-using PkgScout.Modules.Applications.Shared;
+using PkgScout.Shared;
+using PkgScout.Shared.Filesystem;
 using Spectre.Console.Cli;
 
 namespace PkgScout.CLI.Commands;
 
-public sealed class SearchCommand(IEnumerable<IService> services) : Command<SearchCommandSettings>
+public sealed class SearchCommand(IEnumerable<IDetector> detectors)
+    : Command<SearchCommandSettings>
 {
     public override int Execute(CommandContext context, SearchCommandSettings settings)
     {
-        var files = Directory.EnumerateFiles(settings.Directory, "*.*", SearchOption.AllDirectories).ToList();
+        var files = FileScanner.GetFiles(settings.Directory);
 
-        foreach (var service in services)
-        {
-            service.Start(files);
-        }
+        var packages = detectors.SelectMany(detector => detector.Start(files));
+
+        JsonFileWriter.WriteToFile("/home/james/Downloads/Packages.json", packages);
 
         return 0;
     }

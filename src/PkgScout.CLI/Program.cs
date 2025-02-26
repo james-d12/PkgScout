@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using PkgScout;
 using PkgScout.CLI;
 using PkgScout.CLI.Commands;
-using PkgScout.Modules;
 using Spectre.Console.Cli;
 
 var builder = WebApplication.CreateBuilder();

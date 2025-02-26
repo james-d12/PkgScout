@@ -15,7 +15,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\PkgScout.Modules\PkgScout.Modules.csproj"/>
+        <ProjectReference Include="..\PkgScout\PkgScout.csproj"/>
     </ItemGroup>
 
 </Project>
