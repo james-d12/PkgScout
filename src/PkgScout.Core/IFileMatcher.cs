@@ -3,7 +3,8 @@ namespace PkgScout.Core;
 public enum MatchedFileType
 {
     NuGet = 0,
-    Npm
+    Npm,
+    Cargo
 }
 
 public readonly record struct MatchedFiles(IEnumerable<string> Files, MatchedFileType FileType);

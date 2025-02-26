@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using PkgScout.CLI;
 using PkgScout.CLI.Commands;
 using PkgScout.Core;
+using PkgScout.Modules.Cargo;
 using PkgScout.Modules.Npm;
 using PkgScout.Modules.NuGet;
 using Spectre.Console.Cli;
@@ -18,8 +19,10 @@ builder.Services.AddLogging();
 builder.Services.AddSingleton<SearchCommand>();
 builder.Services.AddScoped<IFileMatcher, NpmFileMatcher>();
 builder.Services.AddScoped<IFileMatcher, NugetFileMatcher>();
+builder.Services.AddScoped<IFileMatcher, CargoFileMatcher>();
 builder.Services.AddScoped<NpmPackageExtractor>();
 builder.Services.AddScoped<NugetPackageExtractor>();
+builder.Services.AddScoped<CargoPackageExtractor>();
 
 var serviceProvider = builder.Services.BuildServiceProvider();
 

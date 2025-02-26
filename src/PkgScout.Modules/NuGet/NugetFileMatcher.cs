@@ -10,8 +10,8 @@ public sealed class NugetFileMatcher : IFileMatcher
             file.EndsWith(".nuspec", StringComparison.OrdinalIgnoreCase) ||
             file.EndsWith(".nupkg", StringComparison.OrdinalIgnoreCase) ||
             file.EndsWith(".csproj", StringComparison.OrdinalIgnoreCase) ||
-            file.Equals("packages.config", StringComparison.OrdinalIgnoreCase) ||
-            file.Equals("Directory.Packages.Props", StringComparison.OrdinalIgnoreCase));
+            file.EndsWith("packages.config", StringComparison.OrdinalIgnoreCase) ||
+            file.EndsWith("Directory.Packages.Props", StringComparison.OrdinalIgnoreCase));
 
         return new MatchedFiles(matchedFiles, MatchedFileType.NuGet);
     }
