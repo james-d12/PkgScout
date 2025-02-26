@@ -3,10 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using PkgScout.CLI;
 using PkgScout.CLI.Commands;
-using PkgScout.Core;
-using PkgScout.Modules.Cargo;
-using PkgScout.Modules.Npm;
-using PkgScout.Modules.NuGet;
+using PkgScout.Modules;
 using Spectre.Console.Cli;
 
 var builder = WebApplication.CreateBuilder();
@@ -17,15 +14,7 @@ builder.Logging.AddConfiguration(builder.Configuration.GetSection("Logging"));
 
 builder.Services.AddLogging();
 builder.Services.AddSingleton<SearchCommand>();
-builder.Services.AddScoped<NpmFileMatcher>();
-builder.Services.AddScoped<NugetFileMatcher>();
-builder.Services.AddScoped<CargoFileMatcher>();
-builder.Services.AddScoped<NpmPackageExtractor>();
-builder.Services.AddScoped<NugetPackageExtractor>();
-builder.Services.AddScoped<CargoPackageExtractor>();
-builder.Services.AddScoped<IService, NpmService>();
-builder.Services.AddScoped<IService, NugetService>();
-builder.Services.AddScoped<IService, CargoService>();
+builder.Services.RegisterModules();
 
 var serviceProvider = builder.Services.BuildServiceProvider();
 
@@ -38,39 +27,3 @@ app.Configure(config =>
 });
 
 app.Run(args);
-
-namespace PkgScout.CLI
-{
-    public class TypeRegistrar : ITypeRegistrar
-    {
-        private readonly IServiceProvider _serviceProvider;
-
-        public TypeRegistrar(IServiceProvider serviceProvider) => _serviceProvider = serviceProvider;
-
-        public ITypeResolver Build() => new TypeResolver(_serviceProvider);
-
-        public void Register(Type service, Type implementation)
-        {
-            /* Not needed in this example */
-        }
-
-        public void RegisterInstance(Type service, object implementation)
-        {
-            /* Not needed */
-        }
-
-        public void RegisterLazy(Type service, Func<object> factory)
-        {
-            /* Not needed */
-        }
-    }
-
-    public class TypeResolver : ITypeResolver
-    {
-        private readonly IServiceProvider _serviceProvider;
-
-        public TypeResolver(IServiceProvider serviceProvider) => _serviceProvider = serviceProvider;
-
-        public object? Resolve(Type? type) => type == null ? null : _serviceProvider.GetService(type);
-    }
-}
