@@ -4,6 +4,7 @@ FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /app
 
 COPY ./src .
+COPY Directory.Build.props .
 
 WORKDIR PkgScout.CLI
 
