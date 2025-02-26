@@ -17,12 +17,15 @@ builder.Logging.AddConfiguration(builder.Configuration.GetSection("Logging"));
 
 builder.Services.AddLogging();
 builder.Services.AddSingleton<SearchCommand>();
-builder.Services.AddScoped<IFileMatcher, NpmFileMatcher>();
-builder.Services.AddScoped<IFileMatcher, NugetFileMatcher>();
-builder.Services.AddScoped<IFileMatcher, CargoFileMatcher>();
+builder.Services.AddScoped<NpmFileMatcher>();
+builder.Services.AddScoped<NugetFileMatcher>();
+builder.Services.AddScoped<CargoFileMatcher>();
 builder.Services.AddScoped<NpmPackageExtractor>();
 builder.Services.AddScoped<NugetPackageExtractor>();
 builder.Services.AddScoped<CargoPackageExtractor>();
+builder.Services.AddScoped<IService, NpmService>();
+builder.Services.AddScoped<IService, NugetService>();
+builder.Services.AddScoped<IService, CargoService>();
 
 var serviceProvider = builder.Services.BuildServiceProvider();
 
