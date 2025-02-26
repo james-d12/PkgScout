@@ -45,16 +45,16 @@ public sealed class NugetFileMatcherTests
 
         var validFiles = new List<string>
         {
-            "TESTFILE.CSPROJ",
-            "TESTFILE.NUSPEC",
-            "DIRECTORY.PACKAGES.PROPS",
-            "PACKAGES.CONFIG",
+            "/home/test/thing/TESTFILE.CSPROJ",
+            "/home/test/thing/TESTFILE.NUSPEC",
+            "/home/test/thing/DIRECTORY.PACKAGES.PROPS",
+            "/home/test/thing/PACKAGES.CONFIG",
         };
 
         var files = new List<string>
         {
-            "testfile.txt",
-            "thing.html"
+            "/home/test/thing/testfile.txt",
+            "home/test/thing/thing.html"
         };
 
         files.AddRange(validFiles);

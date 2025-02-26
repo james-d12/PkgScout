@@ -23,11 +23,17 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\src\PkgScout.Modules\PkgScout.Modules.csproj" />
+        <ProjectReference Include="..\..\src\PkgScout.Modules\PkgScout.Modules.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Applications\" />
+        <Folder Include="Applications\"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Content Include="Applications\NuGet\Assets\**">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
     </ItemGroup>
 
 </Project>
