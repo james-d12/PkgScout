@@ -8,7 +8,6 @@ public sealed class NugetFileMatcher : IFileMatcher
     {
         var matchedFiles = files.Where(file =>
             file.EndsWith(".nuspec", StringComparison.OrdinalIgnoreCase) ||
-            file.EndsWith(".nupkg", StringComparison.OrdinalIgnoreCase) ||
             file.EndsWith(".csproj", StringComparison.OrdinalIgnoreCase) ||
             file.EndsWith("packages.config", StringComparison.OrdinalIgnoreCase) ||
             file.EndsWith("Directory.Packages.Props", StringComparison.OrdinalIgnoreCase));

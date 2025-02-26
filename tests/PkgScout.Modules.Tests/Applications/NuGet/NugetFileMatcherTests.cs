@@ -15,7 +15,6 @@ public sealed class NugetFileMatcherTests
         {
             "/home/test/thing/testfile.csproj",
             "/home/test/thing/testfile.nuspec",
-            "/home/test/thing/test.nupkg",
             "/home/test/thing/Directory.Packages.Props",
             "/home/test/thing/packages.config",
         };
@@ -32,7 +31,7 @@ public sealed class NugetFileMatcherTests
         var matches = sut.GetMatches(files);
 
         // Assert
-        Assert.Equal(5, matches.Files.Count());
+        Assert.Equal(4, matches.Files.Count());
         Assert.Equal(MatchedFileType.NuGet, matches.FileType);
         Assert.Equal(matches.Files, validFiles);
     }
@@ -48,7 +47,6 @@ public sealed class NugetFileMatcherTests
         {
             "TESTFILE.CSPROJ",
             "TESTFILE.NUSPEC",
-            "TEST.NUPKG",
             "DIRECTORY.PACKAGES.PROPS",
             "PACKAGES.CONFIG",
         };
@@ -65,7 +63,7 @@ public sealed class NugetFileMatcherTests
         var matches = sut.GetMatches(files);
 
         // Assert
-        Assert.Equal(5, matches.Files.Count());
+        Assert.Equal(4, matches.Files.Count());
         Assert.Equal(MatchedFileType.NuGet, matches.FileType);
         Assert.Equal(matches.Files, validFiles);
     }

@@ -26,6 +26,7 @@ public sealed class NugetPackageExtractor(ILogger<NugetPackageExtractor> logger)
             NugetFileType.ProjectFile => GetPackagesFromProjectFile(xmlDocument),
             NugetFileType.CentralizedPackageManagement => GetPackagesFromCentralisedPackageManagement(xmlDocument),
             NugetFileType.PackageConfigFile => GetPackagesFromPackageConfigFile(xmlDocument),
+            NugetFileType.NuSpecFile => GetPackagesFromNuSpecFile(xmlDocument),
             _ => []
         };
     }
@@ -35,8 +36,8 @@ public sealed class NugetPackageExtractor(ILogger<NugetPackageExtractor> logger)
         return xmlDocument.Descendants("PackageReference")
             .Select(pr => new Package
             (
-                pr.Attribute("Include")?.Value ?? string.Empty,
-                pr.Attribute("Version")?.Value ?? "Unknown"
+                Name: pr.Attribute("Include")?.Value ?? string.Empty,
+                Version: pr.Attribute("Version")?.Value ?? "Unknown"
             ))
             .Where(p => !string.IsNullOrEmpty(p.Name));
     }
@@ -46,8 +47,8 @@ public sealed class NugetPackageExtractor(ILogger<NugetPackageExtractor> logger)
         return xmlDocument.Descendants("Packages")
             .Select(pr => new Package
             (
-                pr.Attribute("id")?.Value ?? string.Empty,
-                pr.Attribute("version")?.Value ?? "Unknown"
+                Name: pr.Attribute("id")?.Value ?? string.Empty,
+                Version: pr.Attribute("version")?.Value ?? "Unknown"
             ))
             .Where(p => !string.IsNullOrEmpty(p.Name));
     }
@@ -57,12 +58,22 @@ public sealed class NugetPackageExtractor(ILogger<NugetPackageExtractor> logger)
         return xmlDocument.Descendants("PackageVersion")
             .Select(pr => new Package
             (
-                pr.Attribute("Include")?.Value ?? string.Empty,
-                pr.Attribute("Version")?.Value ?? "Unknown"
+                Name: pr.Attribute("Include")?.Value ?? string.Empty,
+                Version: pr.Attribute("Version")?.Value ?? "Unknown"
             ))
             .Where(p => !string.IsNullOrEmpty(p.Name));
     }
 
+    private static IEnumerable<Package> GetPackagesFromNuSpecFile(XDocument xmlDocument)
+    {
+        return xmlDocument.Descendants("package")
+            .Select(pr => new Package
+            (
+                Name: pr.Attribute("id")?.Value ?? string.Empty,
+                Version: pr.Attribute("version")?.Value ?? string.Empty
+            ));
+    }
+    
     private static NugetFileType GetNugetFileType(string file)
     {
         var isPackageFile = PackageFilePattern.Contains(file);
