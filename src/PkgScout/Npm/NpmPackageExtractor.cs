@@ -1,35 +1,42 @@
-using System.Text.Json;
 using Microsoft.Extensions.Logging;
+using PkgScout.Npm.Extractors;
 using PkgScout.Shared;
 
 namespace PkgScout.Npm;
 
-public sealed class NpmPackageExtractor(ILogger<NpmPackageExtractor> logger)
+public sealed class NpmPackageExtractor
 {
+    private readonly ILogger<NpmPackageExtractor> _logger;
+    private readonly Dictionary<NpmFileType, INpmExtractor> _extractors;
+
+    public NpmPackageExtractor(
+        ILogger<NpmPackageExtractor> logger,
+        IEnumerable<INpmExtractor> extractors)
+    {
+        _logger = logger;
+        _extractors = extractors.ToDictionary(e => e.SupportedType);
+        ;
+    }
+
     public IEnumerable<Package> Extract(NpmFile file)
     {
         try
         {
-            var content = File.ReadAllText(file.ScannedFile.Fullpath);
-            var packageJson = JsonSerializer.Deserialize<NpmPackageJson>(content);
+            _logger.LogInformation("Extracting Packages from file: {File} {Type}",
+                file.ScannedFile.Fullpath, file.FileType);
 
-            if (packageJson is null)
+            if (!_extractors.TryGetValue(file.FileType, out var extractor))
             {
-                logger.LogInformation("File: {File} was not a valid Npm file.", file);
+                _logger.LogWarning("Could not find any extractors for File Type: {FileType}", file.FileType);
                 return [];
             }
 
-            var dependencies = new List<Package>();
-            dependencies.AddRange(packageJson.Dependencies.Select(
-                d => new Package(d.Key, d.Value)));
-            dependencies.AddRange(packageJson.DevDependencies.Select(
-                d => new Package(d.Key, d.Value)));
-
-            return dependencies;
+            var content = File.ReadAllText(file.ScannedFile.Fullpath);
+            return extractor.Extract(content);
         }
         catch (Exception exception)
         {
-            logger.LogError(exception, "Error extracting Npm package.");
+            _logger.LogError(exception, "Error extracting Npm package.");
             return [];
         }
     }

@@ -12,16 +12,24 @@ public sealed class NpmDetector(
 {
     public IEnumerable<Package> Start(ImmutableList<ScannedFile> files)
     {
-        logger.LogInformation("Starting Npm Detection");
-        var matchedFiles = npmFileMatcher.GetMatches(files);
-
-        if (matchedFiles.Count == 0)
+        try
         {
-            logger.LogWarning("Could not find files that matched Npm search criteria.");
+            logger.LogInformation("Starting Npm Detection");
+            var matchedFiles = npmFileMatcher.GetMatches(files);
+
+            if (matchedFiles.Count == 0)
+            {
+                logger.LogWarning("Could not find files that matched Npm search criteria.");
+                return [];
+            }
+
+            return matchedFiles
+                .SelectMany(npmPackageExtractor.Extract);
+        }
+        catch (Exception exception)
+        {
+            logger.LogError(exception, "Could not detect Npm packages due to exception.");
             return [];
         }
-
-        return matchedFiles
-            .SelectMany(npmPackageExtractor.Extract);
     }
 }
