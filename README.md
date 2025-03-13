@@ -14,21 +14,21 @@ for the user called 'User'
 
 ## Application Managers
 
-- [] Cargo
-- [] Npm
-- [] Nuget
-- [] Pnpm
-- [] Yarn
-- [] Bun
-- [] DockerFile
-- [] DockerCompose
+- [ ] Cargo
+- [ ] Npm
+- [ ] Nuget
+- [ ] Pnpm
+- [ ] Yarn
+- [ ] Bun
+- [ ] DockerFile
+- [ ] DockerCompose
 
 ## System Managers
-- [] Apt
-- [] Pacman
-- [] Dnf
-- [] Yum
-- [] Winget
-- [] Chocolatey
-- [] Scoop
-- [] Homebrew
+- [ ] Apt
+- [ ] Pacman
+- [ ] Dnf
+- [ ] Yum
+- [ ] Winget
+- [ ] Chocolatey
+- [ ] Scoop
+- [ ] Homebrew

@@ -10,10 +10,6 @@ namespace PkgScout;
 
 public static class ServiceCollectionExtensions
 {
-    /// <summary>
-    /// Registers all services
-    /// </summary>
-    /// <param name="services"></param>
     public static void RegisterModules(this IServiceCollection services)
     {
         RegisterCargo(services);
@@ -21,10 +17,6 @@ public static class ServiceCollectionExtensions
         RegisterNuGet(services);
     }
 
-    /// <summary>
-    /// Registers all Cargo services.
-    /// </summary>
-    /// <param name="services"></param>
     private static void RegisterCargo(IServiceCollection services)
     {
         services.AddScoped<CargoPackageExtractor>();
@@ -32,10 +24,6 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IDetector, CargoDetector>();
     }
 
-    /// <summary>
-    /// Registers all required NPM services.
-    /// </summary>
-    /// <param name="services"></param>
     private static void RegisterNpm(IServiceCollection services)
     {
         services.AddScoped<INpmExtractor, NpmPackageJsonExtractor>();
@@ -45,10 +33,6 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IDetector, NpmDetector>();
     }
 
-    /// <summary>
-    /// Registers all required NuGet services.
-    /// </summary>
-    /// <param name="services"></param>
     private static void RegisterNuGet(IServiceCollection services)
     {
         services.AddScoped<INuGetExtractor, NuGetNuspecFileExtractor>();
