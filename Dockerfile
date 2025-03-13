@@ -6,17 +6,17 @@ WORKDIR /app
 COPY ./src .
 COPY ./Directory.Build.props .
 
-WORKDIR PkgScout.CLI
+WORKDIR PkgScout.Console
 
-RUN dotnet restore PkgScout.CLI.csproj
+RUN dotnet restore PkgScout.Console.csproj
 
-RUN dotnet publish PkgScout.CLI.csproj -c Release --no-restore -o /app/bin/PkgScout.CLI
+RUN dotnet publish PkgScout.Console.csproj -c Release --no-restore -o /app/PkgScout.Console
 
 # Serve Stage
 FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS runtime
 
 WORKDIR /app
 
-COPY --from=build "/app/bin/PkgScout.CLI" ./
+COPY --from=build "/app/PkgScout.Console" ./
 
-ENTRYPOINT ["./PkgScout.CLI"]
+ENTRYPOINT ["./PkgScout.Console"]

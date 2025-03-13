@@ -1,8 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PkgScout.CLI", "PkgScout.CLI\PkgScout.CLI.csproj", "{F020E946-135D-44E8-800E-D8916BA30DB6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PkgScout.Console", "PkgScout.Console\PkgScout.Console.csproj", "{F020E946-135D-44E8-800E-D8916BA30DB6}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D3D2E1BB-284B-42F3-BBEC-8BF43EBF3ECE}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Config", "Config", "{D3D2E1BB-284B-42F3-BBEC-8BF43EBF3ECE}"
 	ProjectSection(SolutionItems) = preProject
 		..\.editorconfig = ..\.editorconfig
 		..\.gitignore = ..\.gitignore
@@ -14,8 +14,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		..\docker-compose.yaml = ..\docker-compose.yaml
 		..\Directory.Build.props = ..\Directory.Build.props
 	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{0292A722-4432-47E2-8C6C-56794ECEFDE5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PkgScout.Tests", "..\tests\PkgScout.Tests\PkgScout.Tests.csproj", "{58843787-ACA3-46E5-9C44-394826789DE0}"
 EndProject
@@ -41,6 +39,5 @@ Global
 		{47FF045B-315F-4066-943A-E6384041A271}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{58843787-ACA3-46E5-9C44-394826789DE0} = {0292A722-4432-47E2-8C6C-56794ECEFDE5}
 	EndGlobalSection
 EndGlobal

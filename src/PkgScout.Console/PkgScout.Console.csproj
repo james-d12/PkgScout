@@ -18,4 +18,9 @@
         <ProjectReference Include="..\PkgScout\PkgScout.csproj"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageVersion Update="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.3" />
+      <PackageVersion Update="Microsoft.Extensions.Logging.Console" Version="9.0.3" />
+    </ItemGroup>
+
 </Project>

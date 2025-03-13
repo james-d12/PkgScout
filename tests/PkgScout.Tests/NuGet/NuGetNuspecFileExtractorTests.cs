@@ -11,7 +11,7 @@ public sealed class NuGetNuspecFileExtractorTests
     {
         // Arrange
         var sut = new NuGetNuspecFileExtractor();
-        var file = Path.GetFullPath("./Applications/NuGet/Assets/Example.nuspec");
+        var file = Path.GetFullPath($"{NuGetTestHelper.AssetPath}/Example.nuspec");
         var xmlDocument = XDocument.Load(file);
 
         var expectedPackages = new List<Package>

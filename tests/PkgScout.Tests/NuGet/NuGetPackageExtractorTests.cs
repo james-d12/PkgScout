@@ -27,7 +27,7 @@ public sealed class NuGetPackageExtractorTests
     public void NugetPackageExtractor_WhenCsProjFileWithPackageReferencesIsProvided_ShouldReturnNugetPackages()
     {
         // Arrange
-        var file = Path.GetFullPath("./Applications/NuGet/Assets/ExampleProject.csproj");
+        var file = Path.GetFullPath($"{NuGetTestHelper.AssetPath}/ExampleProject.csproj");
         var nugetFile = new NuGetFile(ScannedFile.Create(file), NuGetFileType.ProjectFile);
 
         var expectedPackages = new List<Package>
@@ -49,7 +49,7 @@ public sealed class NuGetPackageExtractorTests
     public void NugetPackageExtractor_WhenPackageConfigFileWithPackagesIsProvided_ShouldReturnNugetPackages()
     {
         // Arrange
-        var file = Path.GetFullPath("./Applications/NuGet/Assets/packages.config");
+        var file = Path.GetFullPath($"{NuGetTestHelper.AssetPath}/packages.config");
         var nugetFile = new NuGetFile(ScannedFile.Create(file), NuGetFileType.PackagesConfigFile);
 
         var expectedPackages = new List<Package>
@@ -71,7 +71,7 @@ public sealed class NuGetPackageExtractorTests
     public void NugetPackageExtractor_WhenNuSpecFileWithPackagesIsProvided_ShouldReturnNugetPackages()
     {
         // Arrange
-        var file = Path.GetFullPath("./Applications/NuGet/Assets/Example.nuspec");
+        var file = Path.GetFullPath($"{NuGetTestHelper.AssetPath}/Example.nuspec");
         var nugetFile = new NuGetFile(ScannedFile.Create(file), NuGetFileType.NuSpecFile);
 
         var expectedPackages = new List<Package>

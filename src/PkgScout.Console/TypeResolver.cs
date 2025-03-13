@@ -1,6 +1,6 @@
 using Spectre.Console.Cli;
 
-namespace PkgScout.CLI;
+namespace PkgScout.Console;
 
 internal sealed class TypeResolver(IServiceProvider serviceProvider) : ITypeResolver
 {

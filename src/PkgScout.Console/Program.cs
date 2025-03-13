@@ -2,8 +2,8 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using PkgScout;
-using PkgScout.CLI;
-using PkgScout.CLI.Commands;
+using PkgScout.Console;
+using PkgScout.Console.Commands;
 using Spectre.Console.Cli;
 
 var builder = WebApplication.CreateBuilder();
