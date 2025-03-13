@@ -1,6 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using PkgScout.Cargo;
 using PkgScout.Npm;
+using PkgScout.Npm.Extractors;
 using PkgScout.NuGet;
 using PkgScout.NuGet.Extractors;
 using PkgScout.Shared;
@@ -37,6 +38,8 @@ public static class ServiceCollectionExtensions
     /// <param name="services"></param>
     private static void RegisterNpm(IServiceCollection services)
     {
+        services.AddScoped<INpmExtractor, NpmPackageJsonExtractor>();
+        services.AddScoped<INpmExtractor, NpmPackageLockJsonExtractor>();
         services.AddScoped<NpmPackageExtractor>();
         services.AddScoped<NpmFileMatcher>();
         services.AddScoped<IDetector, NpmDetector>();

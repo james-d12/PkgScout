@@ -9,3 +9,26 @@ You can run PkgScout by first building it then running the executable. For examp
 for the user called 'User'
 
 ```./PkgScout.exe search C:\Users\User\Downloads```
+
+# Todo
+
+## Application Managers
+
+- [] Cargo
+- [] Npm
+- [] Nuget
+- [] Pnpm
+- [] Yarn
+- [] Bun
+- [] DockerFile
+- [] DockerCompose
+
+## System Managers
+- [] Apt
+- [] Pacman
+- [] Dnf
+- [] Yum
+- [] Winget
+- [] Chocolatey
+- [] Scoop
+- [] Homebrew
