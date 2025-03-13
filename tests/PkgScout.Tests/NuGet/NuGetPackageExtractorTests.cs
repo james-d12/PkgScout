@@ -32,9 +32,12 @@ public sealed class NuGetPackageExtractorTests
 
         var expectedPackages = new List<Package>
         {
-            new("Microsoft.Extensions.DependencyInjection.Abstractions", "9.0.2"),
-            new("Microsoft.Extensions.Logging.Console", "9.0.2"),
-            new("Spectre.Console.Cli", "0.49.1")
+            new("Microsoft.Extensions.DependencyInjection.Abstractions", "9.0.2", file,
+                PackageSource.Nuget),
+            new("Microsoft.Extensions.Logging.Console", "9.0.2", file,
+                PackageSource.Nuget),
+            new("Spectre.Console.Cli", "0.49.1", file,
+                PackageSource.Nuget)
         };
 
         // Act
@@ -42,7 +45,7 @@ public sealed class NuGetPackageExtractorTests
 
         // Assert
         Assert.Equal(expectedPackages.Count, packages.Count);
-        Assert.Equal(packages, expectedPackages);
+        Assert.True(expectedPackages.SequenceEqual(packages));
     }
 
     [Fact]
@@ -54,9 +57,9 @@ public sealed class NuGetPackageExtractorTests
 
         var expectedPackages = new List<Package>
         {
-            new("Newtonsoft.Json", "13.0.1"),
-            new("Serilog", "2.10.0"),
-            new("Microsoft.EntityFrameworkCore", "6.0.0")
+            new("Newtonsoft.Json", "13.0.1", file, PackageSource.Nuget),
+            new("Serilog", "2.10.0", file, PackageSource.Nuget),
+            new("Microsoft.EntityFrameworkCore", "6.0.0", file, PackageSource.Nuget)
         };
 
         // Act
@@ -64,7 +67,7 @@ public sealed class NuGetPackageExtractorTests
 
         // Assert
         Assert.Equal(expectedPackages.Count, packages.Count);
-        Assert.Equal(packages, expectedPackages);
+        Assert.True(expectedPackages.SequenceEqual(packages));
     }
 
     [Fact]
@@ -76,7 +79,7 @@ public sealed class NuGetPackageExtractorTests
 
         var expectedPackages = new List<Package>
         {
-            new("MyLibrary", "1.0.0")
+            new("MyLibrary", "1.0.0", file, PackageSource.Nuget)
         };
 
         // Act
@@ -84,6 +87,6 @@ public sealed class NuGetPackageExtractorTests
 
         // Assert
         Assert.Equal(expectedPackages.Count, packages.Count);
-        Assert.Equal(expectedPackages, packages);
+        Assert.True(expectedPackages.SequenceEqual(packages));
     }
 }

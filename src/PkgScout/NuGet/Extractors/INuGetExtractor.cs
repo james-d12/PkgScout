@@ -6,5 +6,5 @@ namespace PkgScout.NuGet.Extractors;
 public interface INuGetExtractor
 {
     NuGetFileType SupportedType { get; }
-    IEnumerable<Package> Extract(XDocument xmlDocument);
+    IEnumerable<Package> Extract(XDocument xmlDocument, NuGetFile file);
 }

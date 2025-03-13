@@ -32,7 +32,7 @@ public sealed class NpmPackageExtractor
             }
 
             var content = File.ReadAllText(file.ScannedFile.Fullpath);
-            return extractor.Extract(content);
+            return extractor.Extract(content, file);
         }
         catch (Exception exception)
         {

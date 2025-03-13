@@ -8,8 +8,8 @@ public sealed class NpmFileMatcher
     private static readonly Dictionary<string, NpmFileType> FileNamePatterns =
         new(StringComparer.OrdinalIgnoreCase)
         {
-            { "packages.json", NpmFileType.PackageFile },
-            { "packages-lock.json", NpmFileType.PackageLockFile },
+            { "package.json", NpmFileType.PackageFile },
+            { "package-lock.json", NpmFileType.PackageLockFile },
             { "npm-shrinkwrap.json", NpmFileType.ShrinkWrapFIle },
         };
 

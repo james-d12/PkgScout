@@ -7,7 +7,7 @@ public sealed class NpmPackageLockJsonExtractor : INpmExtractor
 {
     public NpmFileType SupportedType => NpmFileType.PackageLockFile;
 
-    public IEnumerable<Package> Extract(string content)
+    public IEnumerable<Package> Extract(string content, NpmFile file)
     {
         var packageJson = JsonSerializer.Deserialize<NpmPackageLockJson>(content);
 
@@ -19,9 +19,19 @@ public sealed class NpmPackageLockJsonExtractor : INpmExtractor
         var dependencies = new List<Package>();
 
         dependencies.AddRange(packageJson.Dependencies.Values.Select(
-            d => new Package(d.Resolved, d.Version)));
+            d => new Package(
+                Name: d.Resolved,
+                Version: d.Version,
+                Project: file.ScannedFile.Filename,
+                Source: PackageSource.Npm
+            )));
         dependencies.AddRange(packageJson.Packages.Values.Select(
-            d => new Package(d.Resolved, d.Version)));
+            d => new Package(
+                Name: d.Resolved,
+                Version: d.Version,
+                Project: file.ScannedFile.Filename,
+                Source: PackageSource.Npm
+            )));
 
         return dependencies;
     }

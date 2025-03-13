@@ -1,3 +1,13 @@
+using System.Text.Json.Serialization;
+
 namespace PkgScout.Shared;
 
-public readonly record struct Package(string Name, string Version);
+[JsonConverter(typeof(JsonStringEnumConverter))]
+public enum PackageSource
+{
+    Nuget,
+    Npm,
+    Cargo
+}
+
+public readonly record struct Package(string Name, string Version, string Project, PackageSource Source);

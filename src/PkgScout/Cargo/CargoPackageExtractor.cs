@@ -32,7 +32,12 @@ public sealed class CargoPackageExtractor
 
                 if (match.Success)
                 {
-                    dependencies.AddRange(new Package(match.Groups[1].Value, match.Groups[2].Value));
+                    dependencies.AddRange(new Package(
+                        Name: match.Groups[1].Value,
+                        Version: match.Groups[2].Value,
+                        Project: file.ScannedFile.Fullpath,
+                        Source: PackageSource.Cargo
+                    ));
                 }
             }
         }

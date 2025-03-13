@@ -5,5 +5,5 @@ namespace PkgScout.Npm.Extractors;
 public interface INpmExtractor
 {
     NpmFileType SupportedType { get; }
-    IEnumerable<Package> Extract(string content);
+    IEnumerable<Package> Extract(string content, NpmFile file);
 }

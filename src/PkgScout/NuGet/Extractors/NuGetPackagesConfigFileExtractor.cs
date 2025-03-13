@@ -7,7 +7,7 @@ public sealed class NuGetPackagesConfigFileExtractor : INuGetExtractor
 {
     public NuGetFileType SupportedType => NuGetFileType.PackagesConfigFile;
 
-    public IEnumerable<Package> Extract(XDocument xmlDocument)
+    public IEnumerable<Package> Extract(XDocument xmlDocument, NuGetFile file)
     {
         return xmlDocument
             .Descendants()
@@ -15,7 +15,9 @@ public sealed class NuGetPackagesConfigFileExtractor : INuGetExtractor
             .Select(pr => new Package
             (
                 Name: pr.Attribute("id")?.Value ?? string.Empty,
-                Version: pr.Attribute("version")?.Value ?? "Unknown"
+                Version: pr.Attribute("version")?.Value ?? "Unknown",
+                Project: file.ScannedFile.Fullpath,
+                Source: PackageSource.Nuget
             ))
             .Where(p => !string.IsNullOrEmpty(p.Name));
     }

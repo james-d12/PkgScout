@@ -30,6 +30,6 @@ public sealed class NuGetPackageExtractor
         }
 
         var xmlDocument = XDocument.Load(file.ScannedFile.Fullpath);
-        return extractor.Extract(xmlDocument);
+        return extractor.Extract(xmlDocument, file);
     }
 }
