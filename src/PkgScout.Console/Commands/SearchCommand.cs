@@ -14,7 +14,7 @@ public sealed class SearchCommand(IEnumerable<IDetector> detectors, ILogger<Sear
     {
         var stopWatch = new Stopwatch();
         stopWatch.Start();
-        
+
         if (!Directory.Exists(settings.SearchDirectory))
         {
             logger.LogError("Search directory: {Directory} does not exist.", settings.SearchDirectory);
@@ -30,7 +30,7 @@ public sealed class SearchCommand(IEnumerable<IDetector> detectors, ILogger<Sear
         var files = FileScanner.GetFiles(settings.SearchDirectory);
 
         logger.LogInformation("Searching across {Count} files", files.Count);
-        
+
         var packages = new ConcurrentBag<Package>();
 
         Parallel.ForEach(detectors, detector =>
@@ -44,7 +44,7 @@ public sealed class SearchCommand(IEnumerable<IDetector> detectors, ILogger<Sear
         });
 
         JsonFileWriter.WriteToFile($"{settings.OutputDirectory}/pkgscout-packages.json", packages);
-        
+
         stopWatch.Stop();
         var milliseconds = stopWatch.Elapsed.TotalMilliseconds;
 
