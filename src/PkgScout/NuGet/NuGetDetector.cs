@@ -15,16 +15,16 @@ public sealed class NuGetDetector(
         try
         {
             logger.LogInformation("Starting NuGet Detection");
-            var matches = fileMatcher.GetMatches(files);
+            var matchedFiles = fileMatcher.GetMatches(files);
 
-            if (matches.Count == 0)
+            if (matchedFiles.Count == 0)
             {
                 logger.LogWarning("Could not find files that matched NuGet search criteria.");
                 return [];
             }
 
-            return matches
-                .SelectMany(fileExtractor.Extract);
+            logger.LogInformation("Found: {Count} matched files for NuGet.", matchedFiles.Count);
+            return matchedFiles.SelectMany(fileExtractor.Extract);
         }
         catch (Exception exception)
         {

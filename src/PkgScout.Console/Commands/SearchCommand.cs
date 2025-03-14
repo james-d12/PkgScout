@@ -29,6 +29,8 @@ public sealed class SearchCommand(IEnumerable<IDetector> detectors, ILogger<Sear
 
         var files = FileScanner.GetFiles(settings.SearchDirectory);
 
+        logger.LogInformation("Searching across {Count} files", files.Count);
+        
         var packages = new ConcurrentBag<Package>();
 
         Parallel.ForEach(detectors, detector =>

@@ -23,6 +23,8 @@ public sealed class NpmDetector(
                 return [];
             }
 
+            logger.LogInformation("Found: {Count} matched files for Npm.", matchedFiles.Count);
+
             return matchedFiles
                 .SelectMany(npmFileExtractor.Extract);
         }

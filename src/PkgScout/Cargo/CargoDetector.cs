@@ -22,6 +22,7 @@ public sealed class CargoDetector(
             return [];
         }
 
+        logger.LogInformation("Found: {Count} matched files for Cargo.", matchedFiles.Count);
         return matchedFiles.SelectMany(cargoFileExtractor.Extract);
     }
 }
