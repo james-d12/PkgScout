@@ -11,7 +11,7 @@ public sealed class NuGetDetector(
     NuGetFileMatcher fileMatcher,
     NuGetFileExtractor fileExtractor) : IDetector
 {
-    public IEnumerable<Package> Start(ImmutableList<ScannedFile> files)
+    public IEnumerable<Package> Detect(ImmutableList<ScannedFile> files)
     {
         try
         {

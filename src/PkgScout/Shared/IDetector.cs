@@ -5,5 +5,5 @@ namespace PkgScout.Shared;
 
 public interface IDetector
 {
-    IEnumerable<Package> Start(ImmutableList<ScannedFile> files);
+    IEnumerable<Package> Detect(ImmutableList<ScannedFile> files);
 }

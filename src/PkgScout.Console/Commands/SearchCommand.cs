@@ -35,7 +35,7 @@ public sealed class SearchCommand(IEnumerable<IDetector> detectors, ILogger<Sear
 
         Parallel.ForEach(detectors, detector =>
         {
-            var detectedPackages = detector.Start(files).ToList();
+            var detectedPackages = detector.Detect(files).ToList();
 
             foreach (var package in detectedPackages)
             {

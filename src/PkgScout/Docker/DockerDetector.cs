@@ -11,7 +11,7 @@ public sealed class DockerDetector(
     DockerFileMatcher fileMatcher,
     DockerFileExtractor fileExtractor) : IDetector
 {
-    public IEnumerable<Package> Start(ImmutableList<ScannedFile> files)
+    public IEnumerable<Package> Detect(ImmutableList<ScannedFile> files)
     {
         try
         {

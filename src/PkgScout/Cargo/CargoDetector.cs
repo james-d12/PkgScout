@@ -12,7 +12,7 @@ public sealed class CargoDetector(
     CargoFileExtractor cargoFileExtractor)
     : IDetector
 {
-    public IEnumerable<Package> Start(ImmutableList<ScannedFile> files)
+    public IEnumerable<Package> Detect(ImmutableList<ScannedFile> files)
     {
         try
         {
