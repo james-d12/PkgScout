@@ -3,7 +3,7 @@ using PkgScout.Shared;
 
 namespace PkgScout.Cargo;
 
-public sealed class CargoPackageExtractor
+public sealed class CargoFileExtractor
 {
     public IEnumerable<Package> Extract(CargoFile file)
     {

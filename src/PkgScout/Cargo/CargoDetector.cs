@@ -8,7 +8,7 @@ namespace PkgScout.Cargo;
 public sealed class CargoDetector(
     ILogger<CargoDetector> logger,
     CargoFileMatcher cargoFileMatcher,
-    CargoPackageExtractor cargoPackageExtractor)
+    CargoFileExtractor cargoFileExtractor)
     : IDetector
 {
     public IEnumerable<Package> Start(ImmutableList<ScannedFile> files)
@@ -22,6 +22,6 @@ public sealed class CargoDetector(
             return [];
         }
 
-        return matchedFiles.SelectMany(cargoPackageExtractor.Extract);
+        return matchedFiles.SelectMany(cargoFileExtractor.Extract);
     }
 }

@@ -19,7 +19,7 @@ public static class ServiceCollectionExtensions
 
     private static void RegisterCargo(IServiceCollection services)
     {
-        services.AddScoped<CargoPackageExtractor>();
+        services.AddScoped<CargoFileExtractor>();
         services.AddScoped<CargoFileMatcher>();
         services.AddScoped<IDetector, CargoDetector>();
     }
