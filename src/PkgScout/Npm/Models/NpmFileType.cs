@@ -1,4 +1,4 @@
-namespace PkgScout.Npm;
+namespace PkgScout.Npm.Models;
 
 public enum NpmFileType
 {

@@ -12,4 +12,8 @@
       <PackageVersion Update="Microsoft.Extensions.Logging" Version="9.0.3" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Compile Remove="Npm\Context\NpmPackageLockJsonContext.cs" />
+    </ItemGroup>
+
 </Project>

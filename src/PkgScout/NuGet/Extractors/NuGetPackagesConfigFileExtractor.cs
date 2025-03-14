@@ -1,4 +1,5 @@
 using System.Xml.Linq;
+using PkgScout.NuGet.Models;
 using PkgScout.Shared;
 
 namespace PkgScout.NuGet.Extractors;

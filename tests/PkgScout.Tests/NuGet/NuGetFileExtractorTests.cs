@@ -1,17 +1,18 @@
 using Microsoft.Extensions.Logging.Abstractions;
 using PkgScout.NuGet;
 using PkgScout.NuGet.Extractors;
+using PkgScout.NuGet.Models;
 using PkgScout.Shared;
 using PkgScout.Shared.Filesystem;
 
 namespace PkgScout.Tests.NuGet;
 
-public sealed class NuGetPackageExtractorTests
+public sealed class NuGetFileExtractorTests
 {
-    private readonly NullLogger<NuGetPackageExtractor> _nullLogger = new();
-    private readonly NuGetPackageExtractor _sut;
+    private readonly NullLogger<NuGetFileExtractor> _nullLogger = new();
+    private readonly NuGetFileExtractor _sut;
 
-    public NuGetPackageExtractorTests()
+    public NuGetFileExtractorTests()
     {
         var extractors = new List<INuGetExtractor>
         {
@@ -20,7 +21,7 @@ public sealed class NuGetPackageExtractorTests
             new NuGetDirectoryPackagesPropsExtractor(),
             new NuGetPackagesConfigFileExtractor()
         };
-        _sut = new NuGetPackageExtractor(_nullLogger, extractors);
+        _sut = new NuGetFileExtractor(_nullLogger, extractors);
     }
 
     [Fact]

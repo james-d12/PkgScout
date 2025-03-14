@@ -28,7 +28,7 @@ public static class ServiceCollectionExtensions
     {
         services.AddScoped<INpmExtractor, NpmPackageJsonExtractor>();
         services.AddScoped<INpmExtractor, NpmPackageLockJsonExtractor>();
-        services.AddScoped<NpmPackageExtractor>();
+        services.AddScoped<NpmFileExtractor>();
         services.AddScoped<NpmFileMatcher>();
         services.AddScoped<IDetector, NpmDetector>();
     }
@@ -39,7 +39,7 @@ public static class ServiceCollectionExtensions
         services.AddScoped<INuGetExtractor, NuGetPackagesConfigFileExtractor>();
         services.AddScoped<INuGetExtractor, NuGetProjectFileExtractor>();
         services.AddScoped<INuGetExtractor, NuGetDirectoryPackagesPropsExtractor>();
-        services.AddScoped<NuGetPackageExtractor>();
+        services.AddScoped<NuGetFileExtractor>();
         services.AddScoped<NuGetFileMatcher>();
         services.AddScoped<IDetector, NuGetDetector>();
     }

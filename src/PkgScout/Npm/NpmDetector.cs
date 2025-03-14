@@ -8,7 +8,7 @@ namespace PkgScout.Npm;
 public sealed class NpmDetector(
     ILogger<NpmDetector> logger,
     NpmFileMatcher npmFileMatcher,
-    NpmPackageExtractor npmPackageExtractor) : IDetector
+    NpmFileExtractor npmFileExtractor) : IDetector
 {
     public IEnumerable<Package> Start(ImmutableList<ScannedFile> files)
     {
@@ -24,7 +24,7 @@ public sealed class NpmDetector(
             }
 
             return matchedFiles
-                .SelectMany(npmPackageExtractor.Extract);
+                .SelectMany(npmFileExtractor.Extract);
         }
         catch (Exception exception)
         {

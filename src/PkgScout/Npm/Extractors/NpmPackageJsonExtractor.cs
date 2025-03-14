@@ -1,4 +1,5 @@
 using System.Text.Json;
+using PkgScout.Npm.Models;
 using PkgScout.Shared;
 
 namespace PkgScout.Npm.Extractors;

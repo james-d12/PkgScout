@@ -8,7 +8,7 @@ namespace PkgScout.NuGet;
 public sealed class NuGetDetector(
     ILogger<NuGetDetector> logger,
     NuGetFileMatcher fileMatcher,
-    NuGetPackageExtractor packageExtractor) : IDetector
+    NuGetFileExtractor fileExtractor) : IDetector
 {
     public IEnumerable<Package> Start(ImmutableList<ScannedFile> files)
     {
@@ -24,7 +24,7 @@ public sealed class NuGetDetector(
             }
 
             return matches
-                .SelectMany(packageExtractor.Extract);
+                .SelectMany(fileExtractor.Extract);
         }
         catch (Exception exception)
         {

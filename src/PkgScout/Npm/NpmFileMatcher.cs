@@ -1,4 +1,5 @@
 using System.Collections.Immutable;
+using PkgScout.Npm.Models;
 using PkgScout.Shared.Filesystem;
 
 namespace PkgScout.Npm;

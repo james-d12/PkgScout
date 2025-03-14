@@ -1,21 +1,21 @@
 using Microsoft.Extensions.Logging;
 using PkgScout.Npm.Extractors;
+using PkgScout.Npm.Models;
 using PkgScout.Shared;
 
 namespace PkgScout.Npm;
 
-public sealed class NpmPackageExtractor
+public sealed class NpmFileExtractor
 {
-    private readonly ILogger<NpmPackageExtractor> _logger;
+    private readonly ILogger<NpmFileExtractor> _logger;
     private readonly Dictionary<NpmFileType, INpmExtractor> _extractors;
 
-    public NpmPackageExtractor(
-        ILogger<NpmPackageExtractor> logger,
+    public NpmFileExtractor(
+        ILogger<NpmFileExtractor> logger,
         IEnumerable<INpmExtractor> extractors)
     {
         _logger = logger;
         _extractors = extractors.ToDictionary(e => e.SupportedType);
-        ;
     }
 
     public IEnumerable<Package> Extract(NpmFile file)

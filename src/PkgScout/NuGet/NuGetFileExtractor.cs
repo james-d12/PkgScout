@@ -1,17 +1,18 @@
 using System.Xml.Linq;
 using Microsoft.Extensions.Logging;
 using PkgScout.NuGet.Extractors;
+using PkgScout.NuGet.Models;
 using PkgScout.Shared;
 
 namespace PkgScout.NuGet;
 
-public sealed class NuGetPackageExtractor
+public sealed class NuGetFileExtractor
 {
-    private readonly ILogger<NuGetPackageExtractor> _logger;
+    private readonly ILogger<NuGetFileExtractor> _logger;
     private readonly Dictionary<NuGetFileType, INuGetExtractor> _extractors;
 
-    public NuGetPackageExtractor(
-        ILogger<NuGetPackageExtractor> logger,
+    public NuGetFileExtractor(
+        ILogger<NuGetFileExtractor> logger,
         IEnumerable<INuGetExtractor> extractors)
     {
         _logger = logger;

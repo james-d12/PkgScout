@@ -1,4 +1,5 @@
 using System.Collections.Immutable;
+using PkgScout.NuGet.Models;
 using PkgScout.Shared.Filesystem;
 
 namespace PkgScout.NuGet;

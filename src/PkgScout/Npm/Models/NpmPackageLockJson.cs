@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace PkgScout.Npm;
+namespace PkgScout.Npm.Models;
 
 [JsonSerializable(typeof(NpmPackageLockJson))]
 public record NpmPackageLockJson
