@@ -1,4 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
+using PkgScout.Apt;
 using PkgScout.Cargo;
 using PkgScout.Docker;
 using PkgScout.Npm;
@@ -13,27 +14,33 @@ public static class ServiceCollectionExtensions
 {
     public static void RegisterModules(this IServiceCollection services)
     {
-        RegisterDocker(services);
-        RegisterCargo(services);
-        RegisterNpm(services);
-        RegisterNuGet(services);
+        services.RegisterDocker();
+        services.RegisterCargo();
+        services.RegisterNpm();
+        services.RegisterNuGet();
+        services.RegisterApt();
     }
 
-    private static void RegisterDocker(IServiceCollection services)
+    private static void RegisterApt(this IServiceCollection services)
+    {
+        services.AddScoped<ISystemDetector, AptDetector>();
+    }
+
+    private static void RegisterDocker(this IServiceCollection services)
     {
         services.AddScoped<DockerFileExtractor>();
         services.AddScoped<DockerFileMatcher>();
         services.AddScoped<IDetector, DockerDetector>();
     }
 
-    private static void RegisterCargo(IServiceCollection services)
+    private static void RegisterCargo(this IServiceCollection services)
     {
         services.AddScoped<CargoFileExtractor>();
         services.AddScoped<CargoFileMatcher>();
         services.AddScoped<IDetector, CargoDetector>();
     }
 
-    private static void RegisterNpm(IServiceCollection services)
+    private static void RegisterNpm(this IServiceCollection services)
     {
         services.AddScoped<INpmExtractor, NpmPackageJsonExtractor>();
         services.AddScoped<INpmExtractor, NpmPackageLockJsonExtractor>();
@@ -42,7 +49,7 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IDetector, NpmDetector>();
     }
 
-    private static void RegisterNuGet(IServiceCollection services)
+    private static void RegisterNuGet(this IServiceCollection services)
     {
         services.AddScoped<INuGetExtractor, NuGetNuspecFileExtractor>();
         services.AddScoped<INuGetExtractor, NuGetPackagesConfigFileExtractor>();

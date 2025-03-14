@@ -8,7 +8,8 @@ public enum PackageSource
     Nuget,
     Npm,
     Cargo,
-    Docker
+    Docker,
+    Apt
 }
 
 public readonly record struct Package(string Name, string Version, string Project, PackageSource PackageSource);

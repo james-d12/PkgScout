@@ -7,10 +7,13 @@ using Spectre.Console.Cli;
 
 namespace PkgScout.Console.Commands;
 
-public sealed class SearchCommand(IEnumerable<IDetector> detectors, ILogger<SearchCommand> logger)
-    : Command<SearchCommandSettings>
+public sealed class SearchCommand(
+    IEnumerable<IDetector> detectors,
+    ISystemDetector systemDetector,
+    ILogger<SearchCommand> logger)
+    : AsyncCommand<SearchCommandSettings>
 {
-    public override int Execute(CommandContext context, SearchCommandSettings settings)
+    public override async Task<int> ExecuteAsync(CommandContext context, SearchCommandSettings settings)
     {
         var stopWatch = new Stopwatch();
         stopWatch.Start();
@@ -43,12 +46,20 @@ public sealed class SearchCommand(IEnumerable<IDetector> detectors, ILogger<Sear
             }
         });
 
+        var systemPackages = await systemDetector.DetectAsync();
+
+        foreach (var package in systemPackages)
+        {
+            packages.Add(package);
+        }
+
         JsonFileWriter.WriteToFile($"{settings.OutputDirectory}/pkgscout-packages.json", packages);
 
         stopWatch.Stop();
         var milliseconds = stopWatch.Elapsed.TotalMilliseconds;
 
         logger.LogInformation("PkgScout took: {Milliseconds} ms", milliseconds);
+
 
         return 0;
     }
