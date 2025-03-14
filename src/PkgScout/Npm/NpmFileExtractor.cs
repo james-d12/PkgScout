@@ -5,7 +5,7 @@ using PkgScout.Shared;
 
 namespace PkgScout.Npm;
 
-public sealed class NpmFileExtractor
+public sealed class NpmFileExtractor : IFileExtractor<NpmFile>
 {
     private readonly ILogger<NpmFileExtractor> _logger;
     private readonly Dictionary<NpmFileType, INpmExtractor> _extractors;

@@ -1,5 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using PkgScout.Cargo;
+using PkgScout.Docker;
 using PkgScout.Npm;
 using PkgScout.Npm.Extractors;
 using PkgScout.NuGet;
@@ -12,9 +13,17 @@ public static class ServiceCollectionExtensions
 {
     public static void RegisterModules(this IServiceCollection services)
     {
+        RegisterDocker(services);
         RegisterCargo(services);
         RegisterNpm(services);
         RegisterNuGet(services);
+    }
+
+    private static void RegisterDocker(IServiceCollection services)
+    {
+        services.AddScoped<DockerFileExtractor>();
+        services.AddScoped<DockerFileMatcher>();
+        services.AddScoped<IDetector, DockerDetector>();
     }
 
     private static void RegisterCargo(IServiceCollection services)

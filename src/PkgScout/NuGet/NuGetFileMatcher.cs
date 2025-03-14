@@ -1,10 +1,11 @@
 using System.Collections.Immutable;
 using PkgScout.NuGet.Models;
+using PkgScout.Shared;
 using PkgScout.Shared.Filesystem;
 
 namespace PkgScout.NuGet;
 
-public sealed class NuGetFileMatcher
+public sealed class NuGetFileMatcher : IFileMatcher<NuGetFile>
 {
     private static readonly Dictionary<string, NuGetFileType> SearchExtensionPatterns =
         new(StringComparer.OrdinalIgnoreCase)

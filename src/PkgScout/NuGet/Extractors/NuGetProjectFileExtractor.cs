@@ -16,7 +16,7 @@ public sealed class NuGetProjectFileExtractor : INuGetExtractor
                 Name: pr.Attribute("Include")?.Value ?? string.Empty,
                 Version: pr.Attribute("Version")?.Value ?? "Unknown",
                 Project: file.ScannedFile.Fullpath,
-                Source: PackageSource.Nuget
+                PackageSource: PackageSource.Nuget
             ))
             .Where(p => !string.IsNullOrEmpty(p.Name));
     }

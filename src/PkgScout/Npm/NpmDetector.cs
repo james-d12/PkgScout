@@ -2,6 +2,7 @@ using System.Collections.Immutable;
 using Microsoft.Extensions.Logging;
 using PkgScout.Shared;
 using PkgScout.Shared.Filesystem;
+using PkgScout.Shared.Logging;
 
 namespace PkgScout.Npm;
 
@@ -14,23 +15,22 @@ public sealed class NpmDetector(
     {
         try
         {
-            logger.LogInformation("Starting Npm Detection");
+            logger.DetectionStarted("Npm");
             var matchedFiles = npmFileMatcher.GetMatches(files);
 
             if (matchedFiles.Count == 0)
             {
-                logger.LogWarning("Could not find files that matched Npm search criteria.");
+                logger.FilesNotFound("Npm");
                 return [];
             }
 
-            logger.LogInformation("Found: {Count} matched files for Npm.", matchedFiles.Count);
-
+            logger.FilesMatched("Npm", matchedFiles.Count);
             return matchedFiles
                 .SelectMany(npmFileExtractor.Extract);
         }
         catch (Exception exception)
         {
-            logger.LogError(exception, "Could not detect Npm packages due to exception.");
+            logger.DetectionFailed("Npm", exception);
             return [];
         }
     }

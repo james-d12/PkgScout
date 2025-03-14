@@ -24,7 +24,7 @@ public sealed class NuGetNuspecFileExtractor : INuGetExtractor
                 Name: id,
                 Version: version,
                 Project: file.ScannedFile.Fullpath,
-                Source: PackageSource.Nuget
+                PackageSource: PackageSource.Nuget
             )).ToList();
     }
 }

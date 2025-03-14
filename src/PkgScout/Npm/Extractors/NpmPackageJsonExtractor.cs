@@ -24,14 +24,14 @@ public sealed class NpmPackageJsonExtractor : INpmExtractor
                 Name: d.Key,
                 Version: d.Value,
                 Project: file.ScannedFile.Fullpath,
-                Source: PackageSource.Npm
+                PackageSource: PackageSource.Npm
             )));
         dependencies.AddRange(packageJson.DevDependencies.Select(
             d => new Package(
                 Name: d.Key,
                 Version: d.Value,
                 Project: file.ScannedFile.Fullpath,
-                Source: PackageSource.Npm
+                PackageSource: PackageSource.Npm
             )));
 
         return dependencies;

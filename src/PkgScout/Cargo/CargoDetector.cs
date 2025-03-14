@@ -2,6 +2,7 @@ using System.Collections.Immutable;
 using Microsoft.Extensions.Logging;
 using PkgScout.Shared;
 using PkgScout.Shared.Filesystem;
+using PkgScout.Shared.Logging;
 
 namespace PkgScout.Cargo;
 
@@ -13,16 +14,24 @@ public sealed class CargoDetector(
 {
     public IEnumerable<Package> Start(ImmutableList<ScannedFile> files)
     {
-        logger.LogInformation("Starting Cargo Detection");
-        var matchedFiles = cargoFileMatcher.GetMatches(files);
-
-        if (matchedFiles.Count == 0)
+        try
         {
-            logger.LogWarning("Could not find files that matched Cargo search criteria.");
+            logger.DetectionStarted("Cargo");
+            var matchedFiles = cargoFileMatcher.GetMatches(files);
+
+            if (matchedFiles.Count == 0)
+            {
+                logger.FilesNotFound("Cargo");
+                return [];
+            }
+
+            logger.FilesMatched("Cargo", matchedFiles.Count);
+            return matchedFiles.SelectMany(cargoFileExtractor.Extract);
+        }
+        catch (Exception exception)
+        {
+            logger.DetectionFailed("Cargo", exception);
             return [];
         }
-
-        logger.LogInformation("Found: {Count} matched files for Cargo.", matchedFiles.Count);
-        return matchedFiles.SelectMany(cargoFileExtractor.Extract);
     }
 }

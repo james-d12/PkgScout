@@ -1,47 +1,67 @@
 using System.Text.RegularExpressions;
+using Microsoft.Extensions.Logging;
 using PkgScout.Shared;
 
 namespace PkgScout.Cargo;
 
-public sealed class CargoFileExtractor
+public sealed class CargoFileExtractor : IFileExtractor<CargoFile>
 {
+    private readonly ILogger<CargoFileExtractor> _logger;
+
+    public CargoFileExtractor(ILogger<CargoFileExtractor> logger)
+    {
+        _logger = logger;
+    }
+
     public IEnumerable<Package> Extract(CargoFile file)
     {
-        var lines = File.ReadAllLines(file.ScannedFile.Fullpath).Select(line => line.Trim());
-
-        var dependencies = new List<Package>();
-        var isInDependenciesSection = false;
-        const string dependencyPattern = @"^([\w-]+)\s*=\s*""([^""]+)""";
-
-        foreach (var line in lines)
+        try
         {
-            if (line.StartsWith('[') && !line.StartsWith("[dependencies]"))
-            {
-                if (isInDependenciesSection) break;
-            }
+            _logger.LogInformation("Extracting Packages from file: {File}", file.ScannedFile.Fullpath);
+            var lines = File
+                .ReadAllLines(file.ScannedFile.Fullpath)
+                .Select(line => line.Trim())
+                .ToList();
 
-            if (line.Equals("[dependencies]"))
-            {
-                isInDependenciesSection = true;
-                continue;
-            }
+            var dependencies = new List<Package>();
+            var isInDependenciesSection = false;
+            const string dependencyPattern = @"^([\w-]+)\s*=\s*""([^""]+)""";
 
-            if (isInDependenciesSection)
+            foreach (var line in lines)
             {
-                var match = Regex.Match(line, dependencyPattern);
-
-                if (match.Success)
+                if (line.StartsWith('[') && !line.StartsWith("[dependencies]"))
                 {
-                    dependencies.AddRange(new Package(
-                        Name: match.Groups[1].Value,
-                        Version: match.Groups[2].Value,
-                        Project: file.ScannedFile.Fullpath,
-                        Source: PackageSource.Cargo
-                    ));
+                    if (isInDependenciesSection) break;
+                }
+
+                if (line.Equals("[dependencies]"))
+                {
+                    isInDependenciesSection = true;
+                    continue;
+                }
+
+                if (isInDependenciesSection)
+                {
+                    var match = Regex.Match(line, dependencyPattern);
+
+                    if (match.Success)
+                    {
+                        dependencies.AddRange(new Package(
+                            Name: match.Groups[1].Value,
+                            Version: match.Groups[2].Value,
+                            Project: file.ScannedFile.Fullpath,
+                            PackageSource: PackageSource.Cargo
+                        ));
+                    }
                 }
             }
-        }
 
-        return dependencies;
+            return dependencies;
+        }
+        catch (Exception exception)
+        {
+            _logger.LogError(exception, "Error extracting Npm package.");
+            return [];
+        }
     }
 }

@@ -4,32 +4,32 @@ using PkgScout.Shared;
 using PkgScout.Shared.Filesystem;
 using PkgScout.Shared.Logging;
 
-namespace PkgScout.NuGet;
+namespace PkgScout.Docker;
 
-public sealed class NuGetDetector(
-    ILogger<NuGetDetector> logger,
-    NuGetFileMatcher fileMatcher,
-    NuGetFileExtractor fileExtractor) : IDetector
+public sealed class DockerDetector(
+    ILogger<DockerDetector> logger,
+    DockerFileMatcher fileMatcher,
+    DockerFileExtractor fileExtractor) : IDetector
 {
     public IEnumerable<Package> Start(ImmutableList<ScannedFile> files)
     {
         try
         {
-            logger.DetectionStarted("NuGet");
+            logger.DetectionStarted("Docker");
             var matchedFiles = fileMatcher.GetMatches(files);
 
             if (matchedFiles.Count == 0)
             {
-                logger.FilesNotFound("NuGet");
+                logger.FilesNotFound("Docker");
                 return [];
             }
 
-            logger.FilesMatched("NuGet", matchedFiles.Count);
+            logger.FilesMatched("Docker", matchedFiles.Count);
             return matchedFiles.SelectMany(fileExtractor.Extract);
         }
         catch (Exception exception)
         {
-            logger.DetectionFailed("NuGet", exception);
+            logger.DetectionFailed("Docker", exception);
             return [];
         }
     }

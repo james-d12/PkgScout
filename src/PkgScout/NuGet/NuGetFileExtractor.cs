@@ -6,7 +6,7 @@ using PkgScout.Shared;
 
 namespace PkgScout.NuGet;
 
-public sealed class NuGetFileExtractor
+public sealed class NuGetFileExtractor : IFileExtractor<NuGetFile>
 {
     private readonly ILogger<NuGetFileExtractor> _logger;
     private readonly Dictionary<NuGetFileType, INuGetExtractor> _extractors;
