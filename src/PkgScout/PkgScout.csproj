@@ -9,4 +9,12 @@
         <PackageReference Include="Microsoft.Extensions.Logging" Version="9.0.3"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\..\submodules\OsScout\src\OsScout\OsScout.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Application\" />
+    </ItemGroup>
+
 </Project>

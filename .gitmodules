@@ -1,0 +1,3 @@
+[submodule "submodules/OsScout"]
+	path = submodules/OsScout
+	url = https://github.com/james-d12/OsScout.git

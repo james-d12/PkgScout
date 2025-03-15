@@ -1,9 +1,8 @@
 using Microsoft.Extensions.Logging.Abstractions;
-using PkgScout.NuGet;
-using PkgScout.NuGet.Extractors;
-using PkgScout.NuGet.Models;
-using PkgScout.Shared;
-using PkgScout.Shared.Filesystem;
+using PkgScout.Application.NuGet;
+using PkgScout.Application.NuGet.Extractors;
+using PkgScout.Application.NuGet.Models;
+using PkgScout.Application.Shared;
 
 namespace PkgScout.Tests.NuGet;
 
@@ -31,14 +30,14 @@ public sealed class NuGetFileExtractorTests
         var file = Path.GetFullPath($"{NuGetTestHelper.AssetPath}/ExampleProject.csproj");
         var nugetFile = new NuGetFile(ScannedFile.Create(file), NuGetFileType.ProjectFile);
 
-        var expectedPackages = new List<Package>
+        var expectedPackages = new List<ApplicationPackage>
         {
             new("Microsoft.Extensions.DependencyInjection.Abstractions", "9.0.2", file,
-                PackageSource.Nuget),
+                ApplicationPackageSource.Nuget),
             new("Microsoft.Extensions.Logging.Console", "9.0.2", file,
-                PackageSource.Nuget),
+                ApplicationPackageSource.Nuget),
             new("Spectre.Console.Cli", "0.49.1", file,
-                PackageSource.Nuget)
+                ApplicationPackageSource.Nuget)
         };
 
         // Act
@@ -56,11 +55,11 @@ public sealed class NuGetFileExtractorTests
         var file = Path.GetFullPath($"{NuGetTestHelper.AssetPath}/packages.config");
         var nugetFile = new NuGetFile(ScannedFile.Create(file), NuGetFileType.PackagesConfigFile);
 
-        var expectedPackages = new List<Package>
+        var expectedPackages = new List<ApplicationPackage>
         {
-            new("Newtonsoft.Json", "13.0.1", file, PackageSource.Nuget),
-            new("Serilog", "2.10.0", file, PackageSource.Nuget),
-            new("Microsoft.EntityFrameworkCore", "6.0.0", file, PackageSource.Nuget)
+            new("Newtonsoft.Json", "13.0.1", file, ApplicationPackageSource.Nuget),
+            new("Serilog", "2.10.0", file, ApplicationPackageSource.Nuget),
+            new("Microsoft.EntityFrameworkCore", "6.0.0", file, ApplicationPackageSource.Nuget)
         };
 
         // Act
@@ -78,9 +77,9 @@ public sealed class NuGetFileExtractorTests
         var file = Path.GetFullPath($"{NuGetTestHelper.AssetPath}/Example.nuspec");
         var nugetFile = new NuGetFile(ScannedFile.Create(file), NuGetFileType.NuSpecFile);
 
-        var expectedPackages = new List<Package>
+        var expectedPackages = new List<ApplicationPackage>
         {
-            new("MyLibrary", "1.0.0", file, PackageSource.Nuget)
+            new("MyLibrary", "1.0.0", file, ApplicationPackageSource.Nuget)
         };
 
         // Act

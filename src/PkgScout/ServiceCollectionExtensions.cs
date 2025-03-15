@@ -1,12 +1,13 @@
 using Microsoft.Extensions.DependencyInjection;
-using PkgScout.Apt;
-using PkgScout.Cargo;
-using PkgScout.Docker;
-using PkgScout.Npm;
-using PkgScout.Npm.Extractors;
-using PkgScout.NuGet;
-using PkgScout.NuGet.Extractors;
-using PkgScout.Shared;
+using PkgScout.Application.Cargo;
+using PkgScout.Application.Docker;
+using PkgScout.Application.Npm;
+using PkgScout.Application.Npm.Extractors;
+using PkgScout.Application.NuGet;
+using PkgScout.Application.NuGet.Extractors;
+using PkgScout.Application.Shared;
+using PkgScout.System.Dpkg;
+using PkgScout.System.Shared;
 
 namespace PkgScout;
 
@@ -18,26 +19,26 @@ public static class ServiceCollectionExtensions
         services.RegisterCargo();
         services.RegisterNpm();
         services.RegisterNuGet();
-        services.RegisterApt();
+        services.RegisterDpkg();
     }
 
-    private static void RegisterApt(this IServiceCollection services)
+    private static void RegisterDpkg(this IServiceCollection services)
     {
-        services.AddScoped<ISystemDetector, AptDetector>();
+        services.AddScoped<ISystemDetector, DpkgDetector>();
     }
 
     private static void RegisterDocker(this IServiceCollection services)
     {
         services.AddScoped<DockerFileExtractor>();
         services.AddScoped<DockerFileMatcher>();
-        services.AddScoped<IDetector, DockerDetector>();
+        services.AddScoped<IApplicationDetector, DockerApplicationDetector>();
     }
 
     private static void RegisterCargo(this IServiceCollection services)
     {
         services.AddScoped<CargoFileExtractor>();
         services.AddScoped<CargoFileMatcher>();
-        services.AddScoped<IDetector, CargoDetector>();
+        services.AddScoped<IApplicationDetector, CargoApplicationDetector>();
     }
 
     private static void RegisterNpm(this IServiceCollection services)
@@ -46,7 +47,7 @@ public static class ServiceCollectionExtensions
         services.AddScoped<INpmExtractor, NpmPackageLockJsonExtractor>();
         services.AddScoped<NpmFileExtractor>();
         services.AddScoped<NpmFileMatcher>();
-        services.AddScoped<IDetector, NpmDetector>();
+        services.AddScoped<IApplicationDetector, NpmApplicationDetector>();
     }
 
     private static void RegisterNuGet(this IServiceCollection services)
@@ -57,6 +58,6 @@ public static class ServiceCollectionExtensions
         services.AddScoped<INuGetExtractor, NuGetDirectoryPackagesPropsExtractor>();
         services.AddScoped<NuGetFileExtractor>();
         services.AddScoped<NuGetFileMatcher>();
-        services.AddScoped<IDetector, NuGetDetector>();
+        services.AddScoped<IApplicationDetector, NuGetApplicationDetector>();
     }
 }

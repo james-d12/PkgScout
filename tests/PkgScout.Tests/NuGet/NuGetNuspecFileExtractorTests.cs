@@ -1,8 +1,7 @@
 using System.Xml.Linq;
-using PkgScout.NuGet.Extractors;
-using PkgScout.NuGet.Models;
-using PkgScout.Shared;
-using PkgScout.Shared.Filesystem;
+using PkgScout.Application.NuGet.Extractors;
+using PkgScout.Application.NuGet.Models;
+using PkgScout.Application.Shared;
 
 namespace PkgScout.Tests.NuGet;
 
@@ -19,9 +18,9 @@ public sealed class NuGetNuspecFileExtractorTests
 
         var xmlDocument = XDocument.Load(scannedFile.Fullpath);
 
-        var expectedPackages = new List<Package>
+        var expectedPackages = new List<ApplicationPackage>
         {
-            new("MyLibrary", "1.0.0", filePath, PackageSource.Nuget),
+            new("MyLibrary", "1.0.0", filePath, ApplicationPackageSource.Nuget),
         };
 
         // Act

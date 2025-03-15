@@ -19,6 +19,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PkgScout.Tests", "..\tests\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PkgScout", "PkgScout\PkgScout.csproj", "{47FF045B-315F-4066-943A-E6384041A271}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Submodules", "Submodules", "{B9C68F70-066D-4013-B406-2A75BDA6BE30}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OsScout", "..\submodules\OsScout\src\OsScout\OsScout.csproj", "{EB96104C-8605-4779-9411-496A51D97EB1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,7 +41,12 @@ Global
 		{47FF045B-315F-4066-943A-E6384041A271}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{47FF045B-315F-4066-943A-E6384041A271}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{47FF045B-315F-4066-943A-E6384041A271}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB96104C-8605-4779-9411-496A51D97EB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB96104C-8605-4779-9411-496A51D97EB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB96104C-8605-4779-9411-496A51D97EB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB96104C-8605-4779-9411-496A51D97EB1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{EB96104C-8605-4779-9411-496A51D97EB1} = {B9C68F70-066D-4013-B406-2A75BDA6BE30}
 	EndGlobalSection
 EndGlobal

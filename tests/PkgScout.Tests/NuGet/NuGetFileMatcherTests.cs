@@ -1,7 +1,7 @@
 using System.Collections.Immutable;
-using PkgScout.NuGet;
-using PkgScout.NuGet.Models;
-using PkgScout.Shared.Filesystem;
+using PkgScout.Application.NuGet;
+using PkgScout.Application.NuGet.Models;
+using PkgScout.Application.Shared;
 
 namespace PkgScout.Tests.NuGet;
 

@@ -1,14 +1,15 @@
 using System.Collections.Concurrent;
 using System.Diagnostics;
 using Microsoft.Extensions.Logging;
-using PkgScout.Shared;
-using PkgScout.Shared.Filesystem;
+using PkgScout.Application.Shared;
+using PkgScout.Console.Filesystem;
+using PkgScout.System.Shared;
 using Spectre.Console.Cli;
 
 namespace PkgScout.Console.Commands;
 
 public sealed class SearchCommand(
-    IEnumerable<IDetector> detectors,
+    IEnumerable<IApplicationDetector> detectors,
     ISystemDetector systemDetector,
     ILogger<SearchCommand> logger)
     : AsyncCommand<SearchCommandSettings>
@@ -34,7 +35,7 @@ public sealed class SearchCommand(
 
         logger.LogInformation("Searching across {Count} files", files.Count);
 
-        var packages = new ConcurrentBag<Package>();
+        var packages = new ConcurrentBag<ApplicationPackage>();
 
         Parallel.ForEach(detectors, detector =>
         {
@@ -48,12 +49,8 @@ public sealed class SearchCommand(
 
         var systemPackages = await systemDetector.DetectAsync();
 
-        foreach (var package in systemPackages)
-        {
-            packages.Add(package);
-        }
-
-        JsonFileWriter.WriteToFile($"{settings.OutputDirectory}/pkgscout-packages.json", packages);
+        JsonFileWriter.WriteToFile($"{settings.OutputDirectory}/pkgscout-app-packages.json", packages);
+        JsonFileWriter.WriteToFile($"{settings.OutputDirectory}/pkgscout-system-packages.json", systemPackages);
 
         stopWatch.Stop();
         var milliseconds = stopWatch.Elapsed.TotalMilliseconds;
