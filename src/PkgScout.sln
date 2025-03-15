@@ -15,7 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Config", "Config", "{D3D2E1
 		..\Directory.Build.props = ..\Directory.Build.props
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PkgScout.Tests", "..\tests\PkgScout.Tests\PkgScout.Tests.csproj", "{58843787-ACA3-46E5-9C44-394826789DE0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PkgScout.Tests", ".\\PkgScout.Tests\PkgScout.Tests.csproj", "{58843787-ACA3-46E5-9C44-394826789DE0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PkgScout", "PkgScout\PkgScout.csproj", "{47FF045B-315F-4066-943A-E6384041A271}"
 EndProject

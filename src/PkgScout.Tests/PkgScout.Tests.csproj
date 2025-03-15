@@ -26,7 +26,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\src\PkgScout\PkgScout.csproj"/>
+        <ProjectReference Include="..\PkgScout\PkgScout.csproj"/>
     </ItemGroup>
 
 </Project>
