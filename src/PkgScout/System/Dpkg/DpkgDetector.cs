@@ -12,7 +12,7 @@ public sealed class DpkgDetector(ILogger<DpkgDetector> logger) : ISystemDetector
     [
         OperatingSystemType.Debian,
         OperatingSystemType.PopOs,
-        OperatingSystemType.Linuxmint,
+        OperatingSystemType.LinuxMint,
         OperatingSystemType.Ubuntu,
         OperatingSystemType.Deepin,
         OperatingSystemType.Elementary,
