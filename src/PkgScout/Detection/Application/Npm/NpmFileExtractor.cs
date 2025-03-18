@@ -21,12 +21,11 @@ public sealed class NpmFileExtractor : IFileExtractor<NpmFile>
     {
         try
         {
-            _logger.LogInformation("Extracting Packages from file: {File} {Type}",
-                file.ScannedFile.Fullpath, file.FileType);
+            _logger.DetectionExtractFileStarted("Npm", file.ScannedFile.Fullpath);
 
             if (!_extractors.TryGetValue(file.FileType, out var extractor))
             {
-                _logger.LogWarning("Could not find any extractors for File Type: {FileType}", file.FileType);
+                _logger.DetectionExtractFileExtractorNotFound("Npm", file.ScannedFile.Fullpath);
                 return [];
             }
 
@@ -35,7 +34,7 @@ public sealed class NpmFileExtractor : IFileExtractor<NpmFile>
         }
         catch (Exception exception)
         {
-            _logger.LogError(exception, "Error extracting Npm package.");
+            _logger.DetectionExtractFileFailed("Npm", file.ScannedFile.Fullpath, exception);
             return [];
         }
     }

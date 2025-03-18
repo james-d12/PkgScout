@@ -4,20 +4,13 @@ using PkgScout.Detection.Application.Cargo.Models;
 
 namespace PkgScout.Detection.Application.Cargo;
 
-public sealed class CargoFileExtractor : IFileExtractor<CargoFile>
+public sealed class CargoFileExtractor(ILogger<CargoFileExtractor> logger) : IFileExtractor<CargoFile>
 {
-    private readonly ILogger<CargoFileExtractor> _logger;
-
-    public CargoFileExtractor(ILogger<CargoFileExtractor> logger)
-    {
-        _logger = logger;
-    }
-
     public IEnumerable<ApplicationPackage> Extract(CargoFile file)
     {
         try
         {
-            _logger.LogInformation("Extracting Packages from file: {File}", file.ScannedFile.Fullpath);
+            logger.DetectionExtractFileStarted("Cargo", file.ScannedFile.Fullpath);
             var lines = File
                 .ReadAllLines(file.ScannedFile.Fullpath)
                 .Select(line => line.Trim())
@@ -60,7 +53,7 @@ public sealed class CargoFileExtractor : IFileExtractor<CargoFile>
         }
         catch (Exception exception)
         {
-            _logger.LogError(exception, "Error extracting Npm package.");
+            logger.DetectionExtractFileFailed("Cargo", file.ScannedFile.Fullpath, exception);
             return [];
         }
     }

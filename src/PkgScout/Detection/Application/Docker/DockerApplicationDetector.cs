@@ -17,11 +17,11 @@ public sealed class DockerApplicationDetector(
 
             if (matchedFiles.Count == 0)
             {
-                logger.FilesNotFound("Docker");
+                logger.DetectionFilesNotFound("Docker");
                 return [];
             }
 
-            logger.FilesMatched("Docker", matchedFiles.Count);
+            logger.DetectionFilesMatched("Docker", matchedFiles.Count);
             return matchedFiles.SelectMany(fileExtractor.Extract);
         }
         catch (Exception exception)

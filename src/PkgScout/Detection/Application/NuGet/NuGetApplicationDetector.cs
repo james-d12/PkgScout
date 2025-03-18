@@ -17,11 +17,11 @@ public sealed class NuGetApplicationDetector(
 
             if (matchedFiles.Count == 0)
             {
-                logger.FilesNotFound("NuGet");
+                logger.DetectionFilesNotFound("NuGet");
                 return [];
             }
 
-            logger.FilesMatched("NuGet", matchedFiles.Count);
+            logger.DetectionFilesMatched("NuGet", matchedFiles.Count);
             return matchedFiles.SelectMany(fileExtractor.Extract);
         }
         catch (Exception exception)

@@ -18,11 +18,11 @@ public sealed class CargoApplicationDetector(
 
             if (matchedFiles.Count == 0)
             {
-                logger.FilesNotFound("Cargo");
+                logger.DetectionFilesNotFound("Cargo");
                 return [];
             }
 
-            logger.FilesMatched("Cargo", matchedFiles.Count);
+            logger.DetectionFilesMatched("Cargo", matchedFiles.Count);
             return matchedFiles.SelectMany(cargoFileExtractor.Extract);
         }
         catch (Exception exception)

@@ -8,39 +8,46 @@ public sealed class DockerFileExtractor(ILogger<DockerFileExtractor> logger) : I
 {
     public IEnumerable<ApplicationPackage> Extract(DockerFile file)
     {
-        logger.LogInformation("Extracting Packages from file: {File} {Type}",
-            file.ScannedFile.Fullpath, file.FileType);
-
-        var lines = File.ReadAllLines(file.ScannedFile.Fullpath);
-
-        var packages = new List<ApplicationPackage>();
-
-        foreach (var line in lines)
+        try
         {
-            if (line.StartsWith("from", StringComparison.OrdinalIgnoreCase))
+            logger.DetectionExtractFileStarted("Docker", file.ScannedFile.Fullpath);
+
+            var lines = File.ReadAllLines(file.ScannedFile.Fullpath);
+
+            var packages = new List<ApplicationPackage>();
+
+            foreach (var line in lines)
             {
-                logger.LogDebug("Found FROM line in Docker file: {File}", file.ScannedFile.Fullpath);
-                var trimmedLine = Regex.Replace(line, @"\s+", " ");
-                var packageLine = trimmedLine.Split(" ").ElementAtOrDefault(1);
-
-                if (packageLine is null) continue;
-
-                var packageLineSplit = packageLine.Split(":");
-                var packageName = packageLineSplit.ElementAtOrDefault(0);
-                var packageVersion = packageLineSplit.ElementAtOrDefault(1) ?? string.Empty;
-
-                if (packageName is null) continue;
-
-                packages.Add(new ApplicationPackage
+                if (line.StartsWith("from", StringComparison.OrdinalIgnoreCase))
                 {
-                    Name = packageName,
-                    Version = packageVersion,
-                    Project = file.ScannedFile.Fullpath,
-                    Source = ApplicationPackageSource.Docker
-                });
-            }
-        }
+                    logger.LogDebug("Found FROM line in Docker file: {File}", file.ScannedFile.Fullpath);
+                    var trimmedLine = Regex.Replace(line, @"\s+", " ");
+                    var packageLine = trimmedLine.Split(" ").ElementAtOrDefault(1);
 
-        return packages;
+                    if (packageLine is null) continue;
+
+                    var packageLineSplit = packageLine.Split(":");
+                    var packageName = packageLineSplit.ElementAtOrDefault(0);
+                    var packageVersion = packageLineSplit.ElementAtOrDefault(1) ?? string.Empty;
+
+                    if (packageName is null) continue;
+
+                    packages.Add(new ApplicationPackage
+                    {
+                        Name = packageName,
+                        Version = packageVersion,
+                        Project = file.ScannedFile.Fullpath,
+                        Source = ApplicationPackageSource.Docker
+                    });
+                }
+            }
+
+            return packages;
+        }
+        catch (Exception exception)
+        {
+            logger.DetectionExtractFileFailed("Docker", file.ScannedFile.Fullpath, exception);
+            return [];
+        }
     }
 }

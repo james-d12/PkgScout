@@ -17,11 +17,11 @@ public sealed class NpmApplicationDetector(
 
             if (matchedFiles.Count == 0)
             {
-                logger.FilesNotFound("Npm");
+                logger.DetectionFilesNotFound("Npm");
                 return [];
             }
 
-            logger.FilesMatched("Npm", matchedFiles.Count);
+            logger.DetectionFilesMatched("Npm", matchedFiles.Count);
             return matchedFiles
                 .SelectMany(npmFileExtractor.Extract);
         }

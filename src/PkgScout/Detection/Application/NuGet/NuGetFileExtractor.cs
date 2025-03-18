@@ -20,16 +20,23 @@ public sealed class NuGetFileExtractor : IFileExtractor<NuGetFile>
 
     public IEnumerable<ApplicationPackage> Extract(NuGetFile file)
     {
-        _logger.LogInformation("Extracting Packages from file: {File} {Type}",
-            file.ScannedFile.Fullpath, file.FileType);
-
-        if (!_extractors.TryGetValue(file.FileType, out var extractor))
+        try
         {
-            _logger.LogWarning("Could not find any extractors for File Type: {FileType}", file.FileType);
+            _logger.DetectionExtractFileStarted("NuGet", file.ScannedFile.Fullpath);
+
+            if (!_extractors.TryGetValue(file.FileType, out var extractor))
+            {
+                _logger.DetectionExtractFileExtractorNotFound("NuGet", file.ScannedFile.Fullpath);
+                return [];
+            }
+
+            var xmlDocument = XDocument.Load(file.ScannedFile.Fullpath);
+            return extractor.Extract(xmlDocument, file);
+        }
+        catch (Exception exception)
+        {
+            _logger.DetectionExtractFileFailed("NuGet", file.ScannedFile.Fullpath, exception);
             return [];
         }
-
-        var xmlDocument = XDocument.Load(file.ScannedFile.Fullpath);
-        return extractor.Extract(xmlDocument, file);
     }
 }
