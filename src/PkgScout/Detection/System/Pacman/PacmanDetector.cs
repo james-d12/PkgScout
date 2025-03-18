@@ -2,42 +2,39 @@ using System.Text.RegularExpressions;
 using Microsoft.Extensions.Logging;
 using OsScout;
 
-namespace PkgScout.Detection.System.Dpkg;
+namespace PkgScout.Detection.System.Pacman;
 
-public sealed class DpkgDetector(ILogger<DpkgDetector> logger) : ISystemDetector
+public sealed class PacmanDetector(ILogger<PacmanDetector> logger) : ISystemDetector
 {
     public HashSet<OperatingSystemType> SupportedOperatingSystems =>
     [
-        OperatingSystemType.Debian,
-        OperatingSystemType.Devuan,
-        OperatingSystemType.Elementary,
-        OperatingSystemType.LinuxMint,
-        OperatingSystemType.PopOs,
-        OperatingSystemType.Pureos,
-        OperatingSystemType.Raspbian,
-        OperatingSystemType.Ubuntu,
-        OperatingSystemType.Deepin,
-        OperatingSystemType.Trisquel,
-        OperatingSystemType.Kali,
-        OperatingSystemType.Parrot
+        OperatingSystemType.Arch,
+        OperatingSystemType.Arch32,
+        OperatingSystemType.Antergos,
+        OperatingSystemType.ArcoLinux,
+        OperatingSystemType.BlackArch,
+        OperatingSystemType.Hyperbola,
+        OperatingSystemType.RebornOs,
+        OperatingSystemType.Garuda,
+        OperatingSystemType.Artix,
+        OperatingSystemType.EndeavourOs,
+        OperatingSystemType.Manjaro
     ];
 
     public async Task<IEnumerable<SystemPackage>> DetectAsync()
     {
         try
         {
-            logger.DetectionStarted("Dpkg");
+            logger.DetectionStarted("Pacman");
 
-            const string command = "dpkg-query";
-            const string arguments = "-W";
+            const string command = "pacman";
+            const string arguments = "-Q";
 
             var content = await CommandLine.Execute(command, arguments);
 
-            var lines = content.Split("\n");
-
             var packages = new List<SystemPackage>();
 
-            foreach (var line in lines)
+            foreach (var line in content.Split("\n"))
             {
                 if (string.IsNullOrEmpty(line)) continue;
 
@@ -54,7 +51,7 @@ public sealed class DpkgDetector(ILogger<DpkgDetector> logger) : ISystemDetector
                 {
                     Name = packageName,
                     Version = packageVersion,
-                    Source = SystemPackageSource.Dpkg
+                    Source = SystemPackageSource.Pacman
                 });
             }
 
@@ -62,7 +59,7 @@ public sealed class DpkgDetector(ILogger<DpkgDetector> logger) : ISystemDetector
         }
         catch (Exception exception)
         {
-            logger.DetectionFailed("Dpkg", exception);
+            logger.DetectionFailed("Pacman", exception);
             return [];
         }
     }
