@@ -1,9 +1,9 @@
 using System.Collections.Concurrent;
 using System.Diagnostics;
 using Microsoft.Extensions.Logging;
-using PkgScout.Application.Shared;
 using PkgScout.Console.Filesystem;
-using PkgScout.System.Shared;
+using PkgScout.Detection.Application;
+using PkgScout.Detection.System;
 using Spectre.Console.Cli;
 
 namespace PkgScout.Console.Commands;

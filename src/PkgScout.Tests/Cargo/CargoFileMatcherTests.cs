@@ -1,7 +1,7 @@
 using System.Collections.Immutable;
-using PkgScout.Application.Cargo;
-using PkgScout.Application.Cargo.Models;
-using PkgScout.Application.Shared;
+using PkgScout.Detection.Application;
+using PkgScout.Detection.Application.Cargo;
+using PkgScout.Detection.Application.Cargo.Models;
 
 namespace PkgScout.Tests.Cargo;
 

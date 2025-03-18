@@ -1,5 +1,5 @@
 using System.Collections.Immutable;
-using PkgScout.Application.Shared;
+using PkgScout.Detection.Application;
 
 namespace PkgScout.Console.Filesystem;
 

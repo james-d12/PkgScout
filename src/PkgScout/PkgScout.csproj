@@ -13,8 +13,4 @@
       <ProjectReference Include="..\..\submodules\OsScout\src\OsScout\OsScout.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Application\" />
-    </ItemGroup>
-
 </Project>
