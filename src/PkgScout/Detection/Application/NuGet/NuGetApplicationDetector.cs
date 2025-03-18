@@ -12,21 +12,21 @@ public sealed class NuGetApplicationDetector(
     {
         try
         {
-            DetectionLogTemplates.DetectionStarted(logger, "NuGet");
+            logger.DetectionStarted("NuGet");
             var matchedFiles = fileMatcher.GetMatches(files);
 
             if (matchedFiles.Count == 0)
             {
-                DetectionLogTemplates.FilesNotFound(logger, "NuGet");
+                logger.FilesNotFound("NuGet");
                 return [];
             }
 
-            DetectionLogTemplates.FilesMatched(logger, "NuGet", matchedFiles.Count);
+            logger.FilesMatched("NuGet", matchedFiles.Count);
             return matchedFiles.SelectMany(fileExtractor.Extract);
         }
         catch (Exception exception)
         {
-            DetectionLogTemplates.DetectionFailed(logger, "NuGet", exception);
+            logger.DetectionFailed("NuGet", exception);
             return [];
         }
     }

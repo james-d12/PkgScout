@@ -12,22 +12,22 @@ public sealed class NpmApplicationDetector(
     {
         try
         {
-            DetectionLogTemplates.DetectionStarted(logger, "Npm");
+            logger.DetectionStarted("Npm");
             var matchedFiles = npmFileMatcher.GetMatches(files);
 
             if (matchedFiles.Count == 0)
             {
-                DetectionLogTemplates.FilesNotFound(logger, "Npm");
+                logger.FilesNotFound("Npm");
                 return [];
             }
 
-            DetectionLogTemplates.FilesMatched(logger, "Npm", matchedFiles.Count);
+            logger.FilesMatched("Npm", matchedFiles.Count);
             return matchedFiles
                 .SelectMany(npmFileExtractor.Extract);
         }
         catch (Exception exception)
         {
-            DetectionLogTemplates.DetectionFailed(logger, "Npm", exception);
+            logger.DetectionFailed("Npm", exception);
             return [];
         }
     }

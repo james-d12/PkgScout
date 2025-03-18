@@ -22,7 +22,7 @@ public sealed class DpkgDetector(ILogger<DpkgDetector> logger) : ISystemDetector
     {
         try
         {
-            DetectionLogTemplates.DetectionStarted(logger, "Dpkg");
+            logger.DetectionStarted("Dpkg");
 
             const string command = "dpkg-query";
             const string arguments = "-W";
@@ -58,7 +58,7 @@ public sealed class DpkgDetector(ILogger<DpkgDetector> logger) : ISystemDetector
         }
         catch (Exception exception)
         {
-            DetectionLogTemplates.DetectionFailed(logger, "Dpkg", exception);
+            logger.DetectionFailed("Dpkg", exception);
             return [];
         }
     }

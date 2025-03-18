@@ -13,21 +13,21 @@ public sealed class CargoApplicationDetector(
     {
         try
         {
-            DetectionLogTemplates.DetectionStarted(logger, "Cargo");
+            logger.DetectionStarted("Cargo");
             var matchedFiles = cargoFileMatcher.GetMatches(files);
 
             if (matchedFiles.Count == 0)
             {
-                DetectionLogTemplates.FilesNotFound(logger, "Cargo");
+                logger.FilesNotFound("Cargo");
                 return [];
             }
 
-            DetectionLogTemplates.FilesMatched(logger, "Cargo", matchedFiles.Count);
+            logger.FilesMatched("Cargo", matchedFiles.Count);
             return matchedFiles.SelectMany(cargoFileExtractor.Extract);
         }
         catch (Exception exception)
         {
-            DetectionLogTemplates.DetectionFailed(logger, "Cargo", exception);
+            logger.DetectionFailed("Cargo", exception);
             return [];
         }
     }

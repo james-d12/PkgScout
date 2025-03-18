@@ -12,21 +12,21 @@ public sealed class DockerApplicationDetector(
     {
         try
         {
-            DetectionLogTemplates.DetectionStarted(logger, "Docker");
+            logger.DetectionStarted("Docker");
             var matchedFiles = fileMatcher.GetMatches(files);
 
             if (matchedFiles.Count == 0)
             {
-                DetectionLogTemplates.FilesNotFound(logger, "Docker");
+                logger.FilesNotFound("Docker");
                 return [];
             }
 
-            DetectionLogTemplates.FilesMatched(logger, "Docker", matchedFiles.Count);
+            logger.FilesMatched("Docker", matchedFiles.Count);
             return matchedFiles.SelectMany(fileExtractor.Extract);
         }
         catch (Exception exception)
         {
-            DetectionLogTemplates.DetectionFailed(logger, "Docker", exception);
+            logger.DetectionFailed("Docker", exception);
             return [];
         }
     }
