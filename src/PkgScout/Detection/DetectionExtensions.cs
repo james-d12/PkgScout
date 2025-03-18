@@ -6,7 +6,7 @@ namespace PkgScout.Detection;
 
 public static class DetectionExtensions
 {
-    public static void RegisterModules(this IServiceCollection services)
+    public static void RegisterDetectionServices(this IServiceCollection services)
     {
         services.RegisterApplicationServices();
         services.RegisterSystemServices();

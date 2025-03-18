@@ -1,4 +1,5 @@
 using System.Collections.Concurrent;
+using System.Collections.Immutable;
 using System.Diagnostics;
 using Microsoft.Extensions.Logging;
 using PkgScout.Console.Filesystem;
@@ -10,7 +11,7 @@ namespace PkgScout.Console.Commands;
 
 public sealed class SearchCommand(
     IEnumerable<IApplicationDetector> detectors,
-    ISystemDetector systemDetector,
+    SystemSelector systemSelector,
     ILogger<SearchCommand> logger)
     : AsyncCommand<SearchCommandSettings>
 {
@@ -35,6 +36,22 @@ public sealed class SearchCommand(
 
         logger.LogInformation("Searching across {Count} files", files.Count);
 
+        var applicationPackages = GetApplicationPackages(files);
+        var systemPackages = await GetSystemPackages();
+
+        JsonFileWriter.WriteToFile($"{settings.OutputDirectory}/pkgscout-app-packages.json", applicationPackages);
+        JsonFileWriter.WriteToFile($"{settings.OutputDirectory}/pkgscout-system-packages.json", systemPackages);
+
+        stopWatch.Stop();
+        var milliseconds = stopWatch.Elapsed.TotalMilliseconds;
+
+        logger.LogInformation("PkgScout took: {Milliseconds} ms", milliseconds);
+
+        return 0;
+    }
+
+    private ConcurrentBag<ApplicationPackage> GetApplicationPackages(ImmutableList<ScannedFile> files)
+    {
         var packages = new ConcurrentBag<ApplicationPackage>();
 
         Parallel.ForEach(detectors, detector =>
@@ -46,18 +63,18 @@ public sealed class SearchCommand(
                 packages.Add(package);
             }
         });
+        return packages;
+    }
 
-        var systemPackages = await systemDetector.DetectAsync();
+    private async Task<IEnumerable<SystemPackage>> GetSystemPackages()
+    {
+        var systemDetector = systemSelector.GetSystemDetector();
 
-        JsonFileWriter.WriteToFile($"{settings.OutputDirectory}/pkgscout-app-packages.json", packages);
-        JsonFileWriter.WriteToFile($"{settings.OutputDirectory}/pkgscout-system-packages.json", systemPackages);
+        if (systemDetector is null)
+        {
+            return [];
+        }
 
-        stopWatch.Stop();
-        var milliseconds = stopWatch.Elapsed.TotalMilliseconds;
-
-        logger.LogInformation("PkgScout took: {Milliseconds} ms", milliseconds);
-
-
-        return 0;
+        return await systemDetector.DetectAsync();
     }
 }

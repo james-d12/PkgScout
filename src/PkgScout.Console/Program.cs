@@ -14,7 +14,7 @@ builder.Logging.AddConfiguration(builder.Configuration.GetSection("Logging"));
 
 builder.Services.AddLogging();
 builder.Services.AddSingleton<SearchCommand>();
-builder.Services.RegisterModules();
+builder.Services.RegisterDetectionServices();
 
 var serviceProvider = builder.Services.BuildServiceProvider();
 
