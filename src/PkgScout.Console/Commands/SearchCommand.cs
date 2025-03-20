@@ -5,6 +5,8 @@ using Microsoft.Extensions.Logging;
 using PkgScout.Console.Filesystem;
 using PkgScout.Detection.Application;
 using PkgScout.Detection.System;
+using PkgScout.Registry.Npm;
+using PkgScout.Registry.NuGet;
 using Spectre.Console.Cli;
 
 namespace PkgScout.Console.Commands;
@@ -12,6 +14,8 @@ namespace PkgScout.Console.Commands;
 public sealed class SearchCommand(
     IEnumerable<IApplicationDetector> detectors,
     SystemSelector systemSelector,
+    NuGetRegistryClient nuGetRegistryClient,
+    NpmRegistryClient npmRegistryClient,
     ILogger<SearchCommand> logger)
     : AsyncCommand<SearchCommandSettings>
 {
@@ -31,6 +35,9 @@ public sealed class SearchCommand(
             logger.LogError("Output directory: {Directory} does not exist.", settings.OutputDirectory);
             return 1;
         }
+
+        var newtonsoftPackageInfo = await nuGetRegistryClient.GetPackageInfoAsync("newtonsoft.json");
+        var reactPackageInfo = await npmRegistryClient.GetPackageInfoAsync("react");
 
         var files = FileScanner.GetFiles(settings.SearchDirectory);
 
