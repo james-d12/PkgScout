@@ -1,11 +1,11 @@
 using System.Text;
 using CliWrap;
 
-namespace PkgScout.Detection.System;
+namespace PkgScout.Shared;
 
 public static class CommandLine
 {
-    public static async Task<string> Execute(string command, string arguments)
+    public static async Task<string> ExecuteAndReturnStdOutAsync(string command, string arguments)
     {
         var stdOut = new StringBuilder();
         var stdErr = new StringBuilder();
@@ -17,5 +17,14 @@ public static class CommandLine
             .ExecuteAsync();
 
         return stdOut.ToString();
+    }
+
+    public static async Task<bool> ExecuteAsync(string command, string arguments)
+    {
+        var result = await Cli.Wrap(command)
+            .WithArguments(arguments)
+            .ExecuteAsync();
+
+        return result.IsSuccess;
     }
 }

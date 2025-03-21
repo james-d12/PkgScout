@@ -10,6 +10,6 @@ public static class PlatformExtensions
     {
         services.AddOptions<GitHubOptions>().Bind(configuration.GetRequiredSection(nameof(GitHubOptions)));
         services.AddSingleton<GitHubConnectionClient>();
-        services.AddScoped<GitHubClient>();
+        services.AddScoped<GitHubPlatformClient>();
     }
 }

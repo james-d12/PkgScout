@@ -1,6 +1,7 @@
 using System.Text.RegularExpressions;
 using Microsoft.Extensions.Logging;
 using OsScout;
+using PkgScout.Shared;
 
 namespace PkgScout.Detection.System.WinGet;
 
@@ -20,7 +21,7 @@ public sealed class WinGetDetector(ILogger<WinGetDetector> logger) : ISystemDete
             const string command = "winget";
             const string arguments = "list";
 
-            var content = await CommandLine.Execute(command, arguments);
+            var content = await CommandLine.ExecuteAndReturnStdOutAsync(command, arguments);
 
             var packages = new List<SystemPackage>();
 

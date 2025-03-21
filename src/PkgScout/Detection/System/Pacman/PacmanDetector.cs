@@ -1,6 +1,7 @@
 using System.Text.RegularExpressions;
 using Microsoft.Extensions.Logging;
 using OsScout;
+using PkgScout.Shared;
 
 namespace PkgScout.Detection.System.Pacman;
 
@@ -30,7 +31,7 @@ public sealed class PacmanDetector(ILogger<PacmanDetector> logger) : ISystemDete
             const string command = "pacman";
             const string arguments = "-Q";
 
-            var content = await CommandLine.Execute(command, arguments);
+            var content = await CommandLine.ExecuteAndReturnStdOutAsync(command, arguments);
 
             var packages = new List<SystemPackage>();
 

@@ -17,7 +17,7 @@ public sealed class SearchCommand(
     SystemSelector systemSelector,
     NuGetRegistryClient nuGetRegistryClient,
     NpmRegistryClient npmRegistryClient,
-    GitHubClient githubClient,
+    GitHubPlatformClient githubPlatformClient,
     ILogger<SearchCommand> logger)
     : AsyncCommand<SearchCommandSettings>
 {
@@ -40,7 +40,7 @@ public sealed class SearchCommand(
 
         var newtonsoftPackageInfo = await nuGetRegistryClient.GetPackageInfoAsync("newtonsoft.json");
         var reactPackageInfo = await npmRegistryClient.GetPackageInfoAsync("react");
-        var repositories = await githubClient.GetRepositoriesAsync(CancellationToken.None);
+        var repositories = await githubPlatformClient.GetRepositoriesAsync(CancellationToken.None);
 
         var files = FileScanner.GetFiles(settings.SearchDirectory);
 

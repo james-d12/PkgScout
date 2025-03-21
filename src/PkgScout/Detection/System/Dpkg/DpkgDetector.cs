@@ -1,6 +1,7 @@
 using System.Text.RegularExpressions;
 using Microsoft.Extensions.Logging;
 using OsScout;
+using PkgScout.Shared;
 
 namespace PkgScout.Detection.System.Dpkg;
 
@@ -31,7 +32,7 @@ public sealed class DpkgDetector(ILogger<DpkgDetector> logger) : ISystemDetector
             const string command = "dpkg-query";
             const string arguments = "-W";
 
-            var content = await CommandLine.Execute(command, arguments);
+            var content = await CommandLine.ExecuteAndReturnStdOutAsync(command, arguments);
 
             var lines = content.Split("\n");
 
