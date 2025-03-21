@@ -3,7 +3,7 @@ using PkgScout.Detection.Application;
 using PkgScout.Detection.Application.Cargo;
 using PkgScout.Detection.Application.Cargo.Models;
 
-namespace PkgScout.Tests.Cargo;
+namespace PkgScout.Tests.Detection.Cargo;
 
 public sealed class CargoFileMatcherTests
 {

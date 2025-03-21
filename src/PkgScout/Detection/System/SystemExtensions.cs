@@ -2,7 +2,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using PkgScout.Detection.System.Dpkg;
 using PkgScout.Detection.System.Pacman;
-using PkgScout.Detection.System.Winget;
+using PkgScout.Detection.System.WinGet;
 
 namespace PkgScout.Detection.System;
 

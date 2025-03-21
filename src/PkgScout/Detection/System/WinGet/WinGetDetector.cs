@@ -2,7 +2,7 @@ using System.Text.RegularExpressions;
 using Microsoft.Extensions.Logging;
 using OsScout;
 
-namespace PkgScout.Detection.System.Winget;
+namespace PkgScout.Detection.System.WinGet;
 
 public sealed class WinGetDetector(ILogger<WinGetDetector> logger) : ISystemDetector
 {

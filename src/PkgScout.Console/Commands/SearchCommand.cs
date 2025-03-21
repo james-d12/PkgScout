@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using PkgScout.Console.Filesystem;
 using PkgScout.Detection.Application;
 using PkgScout.Detection.System;
+using PkgScout.Platform.GitHub;
 using PkgScout.Registry.Npm;
 using PkgScout.Registry.NuGet;
 using Spectre.Console.Cli;
@@ -16,6 +17,7 @@ public sealed class SearchCommand(
     SystemSelector systemSelector,
     NuGetRegistryClient nuGetRegistryClient,
     NpmRegistryClient npmRegistryClient,
+    GitHubClient githubClient,
     ILogger<SearchCommand> logger)
     : AsyncCommand<SearchCommandSettings>
 {
@@ -38,6 +40,7 @@ public sealed class SearchCommand(
 
         var newtonsoftPackageInfo = await nuGetRegistryClient.GetPackageInfoAsync("newtonsoft.json");
         var reactPackageInfo = await npmRegistryClient.GetPackageInfoAsync("react");
+        var repositories = await githubClient.GetRepositoriesAsync(CancellationToken.None);
 
         var files = FileScanner.GetFiles(settings.SearchDirectory);
 

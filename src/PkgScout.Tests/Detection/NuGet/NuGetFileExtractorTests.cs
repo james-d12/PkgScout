@@ -4,7 +4,7 @@ using PkgScout.Detection.Application.NuGet;
 using PkgScout.Detection.Application.NuGet.Extractors;
 using PkgScout.Detection.Application.NuGet.Models;
 
-namespace PkgScout.Tests.NuGet;
+namespace PkgScout.Tests.Detection.NuGet;
 
 public sealed class NuGetFileExtractorTests
 {

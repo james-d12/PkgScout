@@ -20,13 +20,18 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Content Include="NuGet\Assets\**">
+        <Content Include="Detection\NuGet\Assets\ExampleProject.csproj"/>
+        <Content Include="Detection\NuGet\Assets\**">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
     </ItemGroup>
 
     <ItemGroup>
         <ProjectReference Include="..\PkgScout\PkgScout.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Folder Include="Detection\"/>
     </ItemGroup>
 
 </Project>
