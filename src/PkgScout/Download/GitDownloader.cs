@@ -15,6 +15,7 @@ public sealed class GitDownloader
     public async Task<DownloadedRepository?> DownloadRepositoryAsync(string name, string url, string outputDirectory,
         string branch)
     {
+        
         var arguments = $"clone --depth 1 {url} {outputDirectory} --branch {branch}";
         var result = await CommandLine.ExecuteAsync("git", arguments);
 

@@ -1,5 +1,5 @@
+using System.Diagnostics;
 using System.Text;
-using CliWrap;
 
 namespace PkgScout.Shared;
 
@@ -10,21 +10,60 @@ public static class CommandLine
         var stdOut = new StringBuilder();
         var stdErr = new StringBuilder();
 
-        await Cli.Wrap(command)
-            .WithArguments(arguments)
-            .WithStandardOutputPipe(PipeTarget.ToStringBuilder(stdOut))
-            .WithStandardErrorPipe(PipeTarget.ToStringBuilder(stdErr))
-            .ExecuteAsync();
+        var startInfo = new ProcessStartInfo
+        {
+            FileName = command,
+            Arguments = arguments,
+            RedirectStandardOutput = true,
+            RedirectStandardError = true,
+            UseShellExecute = false,
+            CreateNoWindow = true
+        };
+
+        using var process = new Process();
+        process.StartInfo = startInfo;
+
+        process.OutputDataReceived += (sender, e) =>
+        {
+            if (e.Data != null)
+                stdOut.AppendLine(e.Data);
+        };
+
+        process.ErrorDataReceived += (sender, e) =>
+        {
+            if (e.Data != null)
+                stdErr.AppendLine(e.Data);
+        };
+
+        process.Start();
+
+        process.BeginOutputReadLine();
+        process.BeginErrorReadLine();
+
+        await process.WaitForExitAsync();
 
         return stdOut.ToString();
     }
 
     public static async Task<bool> ExecuteAsync(string command, string arguments)
     {
-        var result = await Cli.Wrap(command)
-            .WithArguments(arguments)
-            .ExecuteAsync();
+        var startInfo = new ProcessStartInfo
+        {
+            FileName = command,
+            Arguments = arguments,
+            RedirectStandardOutput = true,
+            RedirectStandardError = true,
+            UseShellExecute = false,
+            CreateNoWindow = true
+        };
 
-        return result.IsSuccess;
+        using var process = new Process();
+        process.StartInfo = startInfo;
+
+        process.Start();
+
+        await process.WaitForExitAsync();
+
+        return process.ExitCode == 0;
     }
 }
