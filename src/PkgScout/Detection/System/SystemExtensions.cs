@@ -1,5 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using PkgScout.Detection.System.Dnf;
 using PkgScout.Detection.System.Dpkg;
 using PkgScout.Detection.System.Pacman;
 using PkgScout.Detection.System.WinGet;
@@ -14,5 +15,6 @@ public static class SystemExtensions
         services.AddScoped<ISystemDetector, DpkgDetector>();
         services.AddScoped<ISystemDetector, PacmanDetector>();
         services.AddScoped<ISystemDetector, WinGetDetector>();
+        services.AddScoped<ISystemDetector, DnfDetector>();
     }
 }

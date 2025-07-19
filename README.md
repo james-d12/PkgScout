@@ -10,4 +10,4 @@ You can run PkgScout by first building it then running the executable. For examp
 for the user called 'User'. It will go through all files recursively and try to extract packages from various known
 sources.
 
-```./PkgScout.exe search C:\Users\User\Downloads```
+```./PkgScout.Console search --search-directory "/home/User/Dev" --output-directory "/home/User/Downloads/PkgScoutExample" ```

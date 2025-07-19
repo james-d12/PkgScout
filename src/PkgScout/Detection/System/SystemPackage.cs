@@ -7,7 +7,8 @@ public enum SystemPackageSource
 {
     Dpkg,
     Pacman,
-    Winget
+    WinGet,
+    Dnf
 }
 
 public readonly record struct SystemPackage(string Name, string Version, SystemPackageSource Source);

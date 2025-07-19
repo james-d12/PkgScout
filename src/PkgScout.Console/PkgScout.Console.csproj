@@ -6,13 +6,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageVersion Update="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.3"/>
-        <PackageVersion Update="Microsoft.Extensions.Logging.Console" Version="9.0.3"/>
-        <PackageReference Include="Spectre.Console.Cli" Version="0.49.1"/>
-    </ItemGroup>
-
-    <ItemGroup>
         <FrameworkReference Include="Microsoft.AspNetCore.App"/>
+        <PackageReference Include="Spectre.Console.Cli" Version="0.50.0"/>
     </ItemGroup>
 
     <ItemGroup>
@@ -20,9 +15,9 @@
     </ItemGroup>
 
     <ItemGroup>
-      <None Update="appsettings.json">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </None>
+        <None Update="appsettings.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
 
 </Project>

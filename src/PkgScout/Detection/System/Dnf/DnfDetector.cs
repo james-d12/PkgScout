@@ -3,29 +3,33 @@ using Microsoft.Extensions.Logging;
 using OsScout;
 using PkgScout.Shared;
 
-namespace PkgScout.Detection.System.WinGet;
+namespace PkgScout.Detection.System.Dnf;
 
-public sealed class WinGetDetector(ILogger<WinGetDetector> logger) : ISystemDetector
+public sealed class DnfDetector(ILogger<DnfDetector> logger) : ISystemDetector
 {
     public HashSet<OperatingSystemType> SupportedOperatingSystems =>
     [
-        OperatingSystemType.Windows
+        OperatingSystemType.Fedora,
+        OperatingSystemType.AlmaLinux,
+        OperatingSystemType.Rocky
     ];
 
     public async Task<IEnumerable<SystemPackage>> DetectAsync()
     {
         try
         {
-            logger.DetectionStarted("Winget");
+            logger.DetectionStarted("Dnf");
 
-            const string command = "winget";
-            const string arguments = "list";
+            const string command = "dnf";
+            const string arguments = "ls --installed";
 
             var content = await CommandLine.ExecuteAndReturnStdOutAsync(command, arguments);
 
+            var lines = content.Split("\n");
+
             var packages = new List<SystemPackage>();
 
-            foreach (var line in content.Split("\n"))
+            foreach (var line in lines)
             {
                 if (string.IsNullOrEmpty(line)) continue;
 
@@ -33,16 +37,16 @@ public sealed class WinGetDetector(ILogger<WinGetDetector> logger) : ISystemDete
 
                 var package = trimmedLine.Split(" ");
 
-                var packageId = package.ElementAtOrDefault(1)?.Trim();
-                var packageVersion = package.ElementAtOrDefault(2)?.Trim() ?? string.Empty;
+                var packageName = package.ElementAtOrDefault(0)?.Trim();
+                var packageVersion = package.ElementAtOrDefault(1)?.Trim() ?? string.Empty;
 
-                if (packageId is null) continue;
+                if (packageName is null) continue;
 
                 packages.Add(new SystemPackage
                 {
-                    Name = packageId,
+                    Name = packageName,
                     Version = packageVersion,
-                    Source = SystemPackageSource.WinGet
+                    Source = SystemPackageSource.Dnf
                 });
             }
 
@@ -50,7 +54,7 @@ public sealed class WinGetDetector(ILogger<WinGetDetector> logger) : ISystemDete
         }
         catch (Exception exception)
         {
-            logger.DetectionFailed("Winget", exception);
+            logger.DetectionFailed("Dnf", exception);
             return [];
         }
     }
